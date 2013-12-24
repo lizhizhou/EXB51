@@ -1,0 +1,327 @@
+ -- Copyright (C) 1991-2011 Altera Corporation
+ -- Your use of Altera Corporation's design tools, logic functions 
+ -- and other software and tools, and its AMPP partner logic 
+ -- functions, and any output files from any of the foregoing 
+ -- (including device programming or simulation files), and any 
+ -- associated documentation or information are expressly subject 
+ -- to the terms and conditions of the Altera Program License 
+ -- Subscription Agreement, Altera MegaCore Function License 
+ -- Agreement, or other applicable license agreement, including, 
+ -- without limitation, that your use is for the sole purpose of 
+ -- programming logic devices manufactured by Altera and sold by 
+ -- Altera or its authorized distributors.  Please refer to the 
+ -- applicable agreement for further details.
+ -- 
+ -- This is a Quartus II output file. It is for reporting purposes only, and is
+ -- not intended for use as a Quartus II input file. This file cannot be used
+ -- to make Quartus II pin assignments - for instructions on how to make pin
+ -- assignments, please see Quartus II help.
+ ---------------------------------------------------------------------------------
+
+
+
+ ---------------------------------------------------------------------------------
+ -- NC            : No Connect. This pin has no internal connection to the device.
+ -- DNU           : Do Not Use. This pin MUST NOT be connected.
+ -- VCCINT        : Dedicated power pin, which MUST be connected to VCC  (1.2V).
+ -- VCCIO         : Dedicated power pin, which MUST be connected to VCC
+ --                 of its bank.
+ --					Bank 1:		3.3V
+ --					Bank 2:		3.3V
+ --					Bank 3:		3.3V
+ --					Bank 4:		3.3V
+ --					Bank 5:		3.3V
+ --					Bank 6:		3.3V
+ --					Bank 7:		3.3V
+ --					Bank 8:		3.3V
+ -- GND           : Dedicated ground pin. Dedicated GND pins MUST be connected to GND.
+ --					It can also be used to report unused dedicated pins. The connection
+ --					on the board for unused dedicated pins depends on whether this will
+ --					be used in a future design. One example is device migration. When
+ --					using device migration, refer to the device pin-tables. If it is a
+ --					GND pin in the pin table or if it will not be used in a future design
+ --					for another purpose the it MUST be connected to GND. If it is an unused
+ --					dedicated pin, then it can be connected to a valid signal on the board
+ --					(low, high, or toggling) if that signal is required for a different
+ --					revision of the design.
+ -- GND+          : Unused input pin. It can also be used to report unused dual-purpose pins.
+ --					This pin should be connected to GND. It may also be connected  to a
+ --					valid signal  on the board  (low, high, or toggling)  if that signal
+ --					is required for a different revision of the design.
+ -- GND*          : Unused  I/O  pin. Connect each pin marked GND* directly to GND
+ --           	    or leave it unconnected.
+ -- RESERVED      : Unused I/O pin, which MUST be left unconnected.
+ -- RESERVED_INPUT    : Pin is tri-stated and should be connected to the board.
+ -- RESERVED_INPUT_WITH_WEAK_PULLUP    : Pin is tri-stated with internal weak pull-up resistor.
+ -- RESERVED_INPUT_WITH_BUS_HOLD       : Pin is tri-stated with bus-hold circuitry.
+ -- RESERVED_OUTPUT_DRIVEN_HIGH        : Pin is output driven high.
+ ---------------------------------------------------------------------------------
+
+
+
+ ---------------------------------------------------------------------------------
+ -- Pin directions (input, output or bidir) are based on device operating in user mode.
+ ---------------------------------------------------------------------------------
+
+Quartus II Version 10.1 Build 197 01/19/2011 Service Pack 1 SJ Full Version
+CHIP  "EXB-100-U1"  ASSIGNED TO AN: EP3C10F256C8
+
+Device Migration List: "EP3C16F256C8, EP3C5F256C8"
+Pin Name/Usage               : Location  : Dir.   : I/O Standard      : Voltage : I/O Bank  : User Assignment
+-------------------------------------------------------------------------------------------------------------
+VCCIO8                       : A1        : power  :                   : 3.3V    : 8         :                
+PLCD_CTL[1]                  : A2        : output : 3.3-V LVCMOS      :         : 8         : Y              
+PLCD_CTL[3]                  : A3        : output : 3.3-V LVCMOS      :         : 8         : Y              
+PNL_SDO                      : A4        : output : 3.3-V LVCMOS      :         : 8         : Y              
+PNL_SDI                      : A5        : input  : 3.3-V LVCMOS      :         : 8         : Y              
+PNL_SCLK                     : A6        : input  : 3.3-V LVCMOS      :         : 8         : Y              
+SEM_HINT2                    : A7        : output : 3.3-V LVCMOS      :         : 8         : Y              
+GND+                         : A8        :        :                   :         : 8         :                
+GND+                         : A9        :        :                   :         : 7         :                
+SEM_DQ[2]                    : A10       : bidir  : 3.3-V LVCMOS      :         : 7         : Y              
+SEM_DQ[4]                    : A11       : bidir  : 3.3-V LVCMOS      :         : 7         : Y              
+SEM_OEN                      : A12       : input  : 3.3-V LVCMOS      :         : 7         : Y              
+SEM_ADDR[9]                  : A13       : input  : 3.3-V LVCMOS      :         : 7         : Y              
+SEM_ADDR[6]                  : A14       : input  : 3.3-V LVCMOS      :         : 7         : Y              
+SEM_ADDR[7]                  : A15       : input  : 3.3-V LVCMOS      :         : 7         : Y              
+VCCIO7                       : A16       : power  :                   : 3.3V    : 7         :                
+RESET_OUT                    : B1        : output : 3.3-V LVCMOS      :         : 1         : Y              
+GND                          : B2        : gnd    :                   :         :           :                
+PLCD_CTL[0]                  : B3        : output : 3.3-V LVCMOS      :         : 8         : Y              
+PLCD_CTL[2]                  : B4        : output : 3.3-V LVCMOS      :         : 8         : Y              
+PNL_SLE                      : B5        : input  : 3.3-V LVCMOS      :         : 8         : Y              
+PNL_INT                      : B6        : input  : 3.3-V LVCMOS      :         : 8         : Y              
+SEM_CINT                     : B7        : output : 3.3-V LVCMOS      :         : 8         : Y              
+CLK_MAIN                     : B8        : input  : 3.3-V LVCMOS      :         : 8         : Y              
+GND+                         : B9        :        :                   :         : 7         :                
+SEM_DQ[1]                    : B10       : bidir  : 3.3-V LVCMOS      :         : 7         : Y              
+SEM_DQ[3]                    : B11       : bidir  : 3.3-V LVCMOS      :         : 7         : Y              
+SEM_WEN                      : B12       : input  : 3.3-V LVCMOS      :         : 7         : Y              
+SEM_ADDR[8]                  : B13       : input  : 3.3-V LVCMOS      :         : 7         : Y              
+SEM_ADDR[5]                  : B14       : input  : 3.3-V LVCMOS      :         : 7         : Y              
+GND                          : B15       : gnd    :                   :         :           :                
+SEM_HINT6                    : B16       : output : 3.3-V LVCMOS      :         : 6         : Y              
+~ALTERA_ASDO_DATA1~ / RESERVED_INPUT_WITH_WEAK_PULLUP : C1        : input  : 3.3-V LVCMOS      :         : 1         : N              
+PLCD_DQ[15]                  : C2        : bidir  : 3.3-V LVCMOS      :         : 1         : Y              
+OPT_TRIG                     : C3        : input  : 3.3-V LVCMOS      :         : 8         : Y              
+VCCIO8                       : C4        : power  :                   : 3.3V    : 8         :                
+GND                          : C5        : gnd    :                   :         :           :                
+OPT_S[1]                     : C6        : input  : 3.3-V LVCMOS      :         : 8         : Y              
+VCCIO8                       : C7        : power  :                   : 3.3V    : 8         :                
+SEM_BCLK                     : C8        : input  : 3.3-V LVCMOS      :         : 8         : Y              
+SEM_DQ[6]                    : C9        : bidir  : 3.3-V LVCMOS      :         : 7         : Y              
+VCCIO7                       : C10       : power  :                   : 3.3V    : 7         :                
+SEM_DQ[7]                    : C11       : bidir  : 3.3-V LVCMOS      :         : 7         : Y              
+GND                          : C12       : gnd    :                   :         :           :                
+VCCIO7                       : C13       : power  :                   : 3.3V    : 7         :                
+SEM_ADDR[3]                  : C14       : input  : 3.3-V LVCMOS      :         : 7         : Y              
+SEM_HINT1                    : C15       : output : 3.3-V LVCMOS      :         : 6         : Y              
+SEM_HINT5                    : C16       : output : 3.3-V LVCMOS      :         : 6         : Y              
+PLCD_DQ[14]                  : D1        : bidir  : 3.3-V LVCMOS      :         : 1         : Y              
+~ALTERA_FLASH_nCE_nCSO~ / RESERVED_INPUT_WITH_WEAK_PULLUP : D2        : input  : 3.3-V LVCMOS      :         : 1         : N              
+OPT_S[4]                     : D3        : input  : 3.3-V LVCMOS      :         : 8         : Y              
+VCCD_PLL3                    : D4        : power  :                   : 1.2V    :           :                
+OPT_S[3]                     : D5        : input  : 3.3-V LVCMOS      :         : 8         : Y              
+OPT_S[2]                     : D6        : input  : 3.3-V LVCMOS      :         : 8         : Y              
+GND                          : D7        : gnd    :                   :         :           :                
+SEM_CSN                      : D8        : input  : 3.3-V LVCMOS      :         : 8         : Y              
+SEM_DQ[5]                    : D9        : bidir  : 3.3-V LVCMOS      :         : 7         : Y              
+GND                          : D10       : gnd    :                   :         :           :                
+SEM_ADDR[4]                  : D11       : input  : 3.3-V LVCMOS      :         : 7         : Y              
+SEM_ADDR[2]                  : D12       : input  : 3.3-V LVCMOS      :         : 7         : Y              
+VCCD_PLL2                    : D13       : power  :                   : 1.2V    :           :                
+SEM_ADDR[1]                  : D14       : input  : 3.3-V LVCMOS      :         : 7         : Y              
+SEM_DQ[15]                   : D15       : bidir  : 3.3-V LVCMOS      :         : 6         : Y              
+SEM_BATF                     : D16       : output : 3.3-V LVCMOS      :         : 6         : Y              
+GND+                         : E1        :        :                   :         : 1         :                
+CLK_EX                       : E2        : input  : 3.3-V LVCMOS      :         : 1         : Y              
+VCCIO1                       : E3        : power  :                   : 3.3V    : 1         :                
+GND                          : E4        : gnd    :                   :         :           :                
+GNDA3                        : E5        : gnd    :                   :         :           :                
+SEM_HINT4                    : E6        : output : 3.3-V LVCMOS      :         : 8         : Y              
+SEM_HINT0                    : E7        : output : 3.3-V LVCMOS      :         : 8         : Y              
+SEM_WAITN                    : E8        : output : 3.3-V LVCMOS      :         : 8         : Y              
+SEM_BEN[0]                   : E9        : input  : 3.3-V LVCMOS      :         : 7         : Y              
+SEM_DQ[0]                    : E10       : bidir  : 3.3-V LVCMOS      :         : 7         : Y              
+SEM_ADDR[0]                  : E11       : input  : 3.3-V LVCMOS      :         : 7         : Y              
+GNDA2                        : E12       : gnd    :                   :         :           :                
+GND                          : E13       : gnd    :                   :         :           :                
+VCCIO6                       : E14       : power  :                   : 3.3V    : 6         :                
+GND+                         : E15       :        :                   :         : 6         :                
+GND+                         : E16       :        :                   :         : 6         :                
+PLCD_DQ[12]                  : F1        : bidir  : 3.3-V LVCMOS      :         : 1         : Y              
+PLCD_DQ[13]                  : F2        : bidir  : 3.3-V LVCMOS      :         : 1         : Y              
+SPI_SDO                      : F3        : input  : 3.3-V LVCMOS      :         : 1         : Y              
+nSTATUS                      : F4        :        :                   :         : 1         :                
+VCCA3                        : F5        : power  :                   : 2.5V    : 1         :                
+GND                          : F6        : gnd    :                   :         :           :                
+VCCINT                       : F7        : power  :                   : 1.2V    :           :                
+SEM_BEN[1]                   : F8        : input  : 3.3-V LVCMOS      :         : 8         : Y              
+SEM_ADDR[10]                 : F9        : input  : 3.3-V LVCMOS      :         : 7         : Y              
+GND                          : F10       : gnd    :                   :         :           :                
+VCCINT                       : F11       : power  :                   : 1.2V    :           :                
+VCCA2                        : F12       : power  :                   : 2.5V    :           :                
+SEM_ADDR[12]                 : F13       : input  : 3.3-V LVCMOS      :         : 6         : Y              
+SEM_DQ[14]                   : F14       : bidir  : 3.3-V LVCMOS      :         : 6         : Y              
+SEM_DQ[12]                   : F15       : bidir  : 3.3-V LVCMOS      :         : 6         : Y              
+SEM_DQ[13]                   : F16       : bidir  : 3.3-V LVCMOS      :         : 6         : Y              
+PLCD_DQ[10]                  : G1        : bidir  : 3.3-V LVCMOS      :         : 1         : Y              
+PLCD_DQ[11]                  : G2        : bidir  : 3.3-V LVCMOS      :         : 1         : Y              
+VCCIO1                       : G3        : power  :                   : 3.3V    : 1         :                
+GND                          : G4        : gnd    :                   :         :           :                
+SPI_SRDY                     : G5        : input  : 3.3-V LVCMOS      :         : 1         : Y              
+VCCINT                       : G6        : power  :                   : 1.2V    :           :                
+VCCINT                       : G7        : power  :                   : 1.2V    :           :                
+VCCINT                       : G8        : power  :                   : 1.2V    :           :                
+VCCINT                       : G9        : power  :                   : 1.2V    :           :                
+VCCINT                       : G10       : power  :                   : 1.2V    :           :                
+SEM_ADDR[11]                 : G11       : input  : 3.3-V LVCMOS      :         : 6         : Y              
+MSEL2                        : G12       :        :                   :         : 6         :                
+GND                          : G13       : gnd    :                   :         :           :                
+VCCIO6                       : G14       : power  :                   : 3.3V    : 6         :                
+SEM_DQ[11]                   : G15       : bidir  : 3.3-V LVCMOS      :         : 6         : Y              
+~ALTERA_INIT_DONE~ / RESERVED_OUTPUT_OPEN_DRAIN : G16       : output : 3.3-V LVCMOS      :         : 6         : N              
+~ALTERA_DCLK~                : H1        : output : 3.3-V LVCMOS      :         : 1         : N              
+~ALTERA_DATA0~ / RESERVED_INPUT_WITH_WEAK_PULLUP : H2        : input  : 3.3-V LVCMOS      :         : 1         : N              
+altera_reserved_tck          : H3        : input  : 3.3-V LVCMOS      :         : 1         : N              
+altera_reserved_tdi          : H4        : input  : 3.3-V LVCMOS      :         : 1         : N              
+nCONFIG                      : H5        :        :                   :         : 1         :                
+VCCINT                       : H6        : power  :                   : 1.2V    :           :                
+GND                          : H7        : gnd    :                   :         :           :                
+GND                          : H8        : gnd    :                   :         :           :                
+GND                          : H9        : gnd    :                   :         :           :                
+GND                          : H10       : gnd    :                   :         :           :                
+VCCINT                       : H11       : power  :                   : 1.2V    :           :                
+MSEL1                        : H12       :        :                   :         : 6         :                
+MSEL0                        : H13       :        :                   :         : 6         :                
+CONF_DONE                    : H14       :        :                   :         : 6         :                
+SEM_DQ[9]                    : H15       : bidir  : 3.3-V LVCMOS      :         : 6         : Y              
+SEM_DQ[10]                   : H16       : bidir  : 3.3-V LVCMOS      :         : 6         : Y              
+PLCD_DQ[9]                   : J1        : bidir  : 3.3-V LVCMOS      :         : 2         : Y              
+PLCD_DQ[8]                   : J2        : bidir  : 3.3-V LVCMOS      :         : 2         : Y              
+nCE                          : J3        :        :                   :         : 1         :                
+altera_reserved_tdo          : J4        : output : 3.3-V LVCMOS      :         : 1         : N              
+altera_reserved_tms          : J5        : input  : 3.3-V LVCMOS      :         : 1         : N              
+VCCINT                       : J6        : power  :                   : 1.2V    :           :                
+GND                          : J7        : gnd    :                   :         :           :                
+GND                          : J8        : gnd    :                   :         :           :                
+GND                          : J9        : gnd    :                   :         :           :                
+GND                          : J10       : gnd    :                   :         :           :                
+GND                          : J11       : gnd    :                   :         :           :                
+DXB_AVS_DQ[9]                : J12       : bidir  : 3.3-V LVCMOS      :         : 5         : Y              
+DXB_AVS_DQ[7]                : J13       : bidir  : 3.3-V LVCMOS      :         : 5         : Y              
+DXB_AVS_DQ[8]                : J14       : bidir  : 3.3-V LVCMOS      :         : 5         : Y              
+FPGA_DONE                    : J15       : input  : 3.3-V LVCMOS      :         : 5         : Y              
+SEM_DQ[8]                    : J16       : bidir  : 3.3-V LVCMOS      :         : 5         : Y              
+PLCD_DQ[7]                   : K1        : bidir  : 3.3-V LVCMOS      :         : 2         : Y              
+PLCD_DQ[6]                   : K2        : bidir  : 3.3-V LVCMOS      :         : 2         : Y              
+VCCIO2                       : K3        : power  :                   : 3.3V    : 2         :                
+GND                          : K4        : gnd    :                   :         :           :                
+SPI_STA0                     : K5        : input  : 3.3-V LVCMOS      :         : 2         : Y              
+SPI_STA1                     : K6        : input  : 3.3-V LVCMOS      :         : 2         : Y              
+VCCINT                       : K7        : power  :                   : 1.2V    :           :                
+GND                          : K8        : gnd    :                   :         :           :                
+SLED[2]                      : K9        : output : 3.3-V LVCMOS      :         : 4         : Y              
+DXB_AVS_DQ[5]                : K10       : bidir  : 3.3-V LVCMOS      :         : 4         : Y              
+VCCINT                       : K11       : power  :                   : 1.2V    :           :                
+DXB_AVS_DQ[10]               : K12       : bidir  : 3.3-V LVCMOS      :         : 5         : Y              
+GND                          : K13       : gnd    :                   :         :           :                
+VCCIO5                       : K14       : power  :                   : 3.3V    : 5         :                
+FPGA_DATA                    : K15       : output : 3.3-V LVCMOS      :         : 5         : Y              
+FPGA_CFGN                    : K16       : output : 3.3-V LVCMOS      :         : 5         : Y              
+PLCD_DQ[5]                   : L1        : bidir  : 3.3-V LVCMOS      :         : 2         : Y              
+PLCD_DQ[4]                   : L2        : bidir  : 3.3-V LVCMOS      :         : 2         : Y              
+SPI_SCLK                     : L3        : output : 3.3-V LVCMOS      :         : 2         : Y              
+SPI_SLE                      : L4        : output : 3.3-V LVCMOS      :         : 2         : Y              
+VCCA1                        : L5        : power  :                   : 2.5V    :           :                
+SPI_SDI                      : L6        : output : 3.3-V LVCMOS      :         : 2         : Y              
+DXB_SPI_RDY                  : L7        : input  : 3.3-V LVCMOS      :         : 3         : Y              
+SLED[3]                      : L8        : output : 3.3-V LVCMOS      :         : 3         : Y              
+SLED[1]                      : L9        : output : 3.3-V LVCMOS      :         : 4         : Y              
+DXB_AVS_DQ[4]                : L10       : bidir  : 3.3-V LVCMOS      :         : 4         : Y              
+DXB_AVS_DQ[6]                : L11       : bidir  : 3.3-V LVCMOS      :         : 4         : Y              
+VCCA4                        : L12       : power  :                   : 2.5V    : 5         :                
+DXB_AVS_DQ[12]               : L13       : bidir  : 3.3-V LVCMOS      :         : 5         : Y              
+DXB_AVS_DQ[11]               : L14       : bidir  : 3.3-V LVCMOS      :         : 5         : Y              
+DXB_AVS_FUNC[0]              : L15       : bidir  : 3.3-V LVCMOS      :         : 5         : Y              
+DXB_AVS_FUNC[1]              : L16       : bidir  : 3.3-V LVCMOS      :         : 5         : Y              
+GND+                         : M1        :        :                   :         : 2         :                
+GND+                         : M2        :        :                   :         : 2         :                
+VCCIO2                       : M3        : power  :                   : 3.3V    : 2         :                
+GND                          : M4        : gnd    :                   :         :           :                
+GNDA1                        : M5        : gnd    :                   :         :           :                
+PATA_ADDR[0]                 : M6        : output : 3.3-V LVCMOS      :         : 3         : Y              
+PATA_WEN                     : M7        : output : 3.3-V LVCMOS      :         : 3         : Y              
+DXB_SPI_SDOUT                : M8        : input  : 3.3-V LVCMOS      :         : 3         : Y              
+SLED[0]                      : M9        : output : 3.3-V LVCMOS      :         : 4         : Y              
+DXB_SPI_SLE                  : M10       : output : 3.3-V LVCMOS      :         : 4         : Y              
+DXB_AVS_DQ[15]               : M11       : bidir  : 3.3-V LVCMOS      :         : 4         : Y              
+GNDA4                        : M12       : gnd    :                   :         :           :                
+GND                          : M13       : gnd    :                   :         :           :                
+VCCIO5                       : M14       : power  :                   : 3.3V    : 5         :                
+CLK_SCK                      : M15       : input  : 3.3-V LVCMOS      :         : 5         : Y              
+GND+                         : M16       :        :                   :         : 5         :                
+PLCD_DQ[3]                   : N1        : bidir  : 3.3-V LVCMOS      :         : 2         : Y              
+PLCD_DQ[2]                   : N2        : bidir  : 3.3-V LVCMOS      :         : 2         : Y              
+PATA_ADDR[3]                 : N3        : output : 3.3-V LVCMOS      :         : 3         : Y              
+VCCD_PLL1                    : N4        : power  :                   : 1.2V    :           :                
+PATA_ADDR[2]                 : N5        : output : 3.3-V LVCMOS      :         : 3         : Y              
+PATA_ADDR[1]                 : N6        : output : 3.3-V LVCMOS      :         : 3         : Y              
+GND                          : N7        : gnd    :                   :         :           :                
+PATA_INTRQ                   : N8        : input  : 3.3-V LVCMOS      :         : 3         : Y              
+DXB_SPI_CLK                  : N9        : output : 3.3-V LVCMOS      :         : 4         : Y              
+GND                          : N10       : gnd    :                   :         :           :                
+DXB_AVS_SYNCIN               : N11       : input  : 3.3-V LVCMOS      :         : 4         : Y              
+DXB_AVS_OUTN                 : N12       : output : 3.3-V LVCMOS      :         : 4         : Y              
+VCCD_PLL4                    : N13       : power  :                   : 1.2V    :           :                
+DXB_AVS_DQ[13]               : N14       : bidir  : 3.3-V LVCMOS      :         : 5         : Y              
+DXB_AVS_SYNCOUT              : N15       : output : 3.3-V LVCMOS      :         : 5         : Y              
+FPGA_CLK                     : N16       : output : 3.3-V LVCMOS      :         : 5         : Y              
+PLCD_DQ[1]                   : P1        : bidir  : 3.3-V LVCMOS      :         : 2         : Y              
+PLCD_DQ[0]                   : P2        : bidir  : 3.3-V LVCMOS      :         : 2         : Y              
+PATA_ADDR[4]                 : P3        : output : 3.3-V LVCMOS      :         : 3         : Y              
+VCCIO3                       : P4        : power  :                   : 3.3V    : 3         :                
+GND                          : P5        : gnd    :                   :         :           :                
+PATA_OEN                     : P6        : output : 3.3-V LVCMOS      :         : 3         : Y              
+VCCIO3                       : P7        : power  :                   : 3.3V    : 3         :                
+PATA_WAITN                   : P8        : input  : 3.3-V LVCMOS      :         : 3         : Y              
+DXB_SPI_SDIN                 : P9        : output : 3.3-V LVCMOS      :         : 4         : Y              
+VCCIO4                       : P10       : power  :                   : 3.3V    : 4         :                
+DXB_SPI_INTRQ                : P11       : input  : 3.3-V LVCMOS      :         : 4         : Y              
+GND                          : P12       : gnd    :                   :         :           :                
+VCCIO4                       : P13       : power  :                   : 3.3V    : 4         :                
+DXB_AVS_DQ[14]               : P14       : bidir  : 3.3-V LVCMOS      :         : 4         : Y              
+FPGA_STATUS                  : P15       : input  : 3.3-V LVCMOS      :         : 5         : Y              
+DXB_AVS_FUNC[2]              : P16       : bidir  : 3.3-V LVCMOS      :         : 5         : Y              
+PLCD_DIR                     : R1        : output : 3.3-V LVCMOS      :         : 2         : Y              
+GND                          : R2        : gnd    :                   :         :           :                
+PATA_DQ[0]                   : R3        : bidir  : 3.3-V LVCMOS      :         : 3         : Y              
+PATA_DQ[1]                   : R4        : bidir  : 3.3-V LVCMOS      :         : 3         : Y              
+PATA_DQ[2]                   : R5        : bidir  : 3.3-V LVCMOS      :         : 3         : Y              
+PATA_DQ[3]                   : R6        : bidir  : 3.3-V LVCMOS      :         : 3         : Y              
+PATA_DQ[4]                   : R7        : bidir  : 3.3-V LVCMOS      :         : 3         : Y              
+DXB_CLKOUT                   : R8        : input  : 3.3-V LVCMOS      :         : 3         : Y              
+GND+                         : R9        :        :                   :         : 4         :                
+PATA_DQ[9]                   : R10       : bidir  : 3.3-V LVCMOS      :         : 4         : Y              
+PATA_DQ[8]                   : R11       : bidir  : 3.3-V LVCMOS      :         : 4         : Y              
+PATA_DIR                     : R12       : output : 3.3-V LVCMOS      :         : 4         : Y              
+DXB_AVS_DQ[2]                : R13       : bidir  : 3.3-V LVCMOS      :         : 4         : Y              
+DXB_AVS_DQ[0]                : R14       : bidir  : 3.3-V LVCMOS      :         : 4         : Y              
+GND                          : R15       : gnd    :                   :         :           :                
+DXB_AVS_CMD[1]               : R16       : input  : 3.3-V LVCMOS      :         : 5         : Y              
+VCCIO3                       : T1        : power  :                   : 3.3V    : 3         :                
+PATA_DQ[15]                  : T2        : bidir  : 3.3-V LVCMOS      :         : 3         : Y              
+PATA_DQ[14]                  : T3        : bidir  : 3.3-V LVCMOS      :         : 3         : Y              
+PATA_DQ[13]                  : T4        : bidir  : 3.3-V LVCMOS      :         : 3         : Y              
+PATA_DQ[12]                  : T5        : bidir  : 3.3-V LVCMOS      :         : 3         : Y              
+PATA_DQ[11]                  : T6        : bidir  : 3.3-V LVCMOS      :         : 3         : Y              
+PATA_DQ[10]                  : T7        : bidir  : 3.3-V LVCMOS      :         : 3         : Y              
+GND+                         : T8        :        :                   :         : 3         :                
+GND+                         : T9        :        :                   :         : 4         :                
+PATA_DQ[5]                   : T10       : bidir  : 3.3-V LVCMOS      :         : 4         : Y              
+PATA_DQ[6]                   : T11       : bidir  : 3.3-V LVCMOS      :         : 4         : Y              
+PATA_DQ[7]                   : T12       : bidir  : 3.3-V LVCMOS      :         : 4         : Y              
+DXB_AVS_DQ[3]                : T13       : bidir  : 3.3-V LVCMOS      :         : 4         : Y              
+DXB_AVS_DQ[1]                : T14       : bidir  : 3.3-V LVCMOS      :         : 4         : Y              
+DXB_AVS_CMD[0]               : T15       : input  : 3.3-V LVCMOS      :         : 4         : Y              
+VCCIO4                       : T16       : power  :                   : 3.3V    : 4         :                

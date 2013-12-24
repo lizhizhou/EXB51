@@ -1,0 +1,186 @@
+ module PNLPort(
+csi_clockreset_clk,
+csi_clockreset_reset_n,
+
+//Avalon Ports
+avs_psend_readdata,
+avs_psend_writedata,
+avs_psend_write_n,
+avs_psend_waitrequest_n,
+
+avs_precv0_readdata,
+avs_precv0_waitrequest_n,
+avs_precv1_readdata,
+avs_precv1_waitrequest_n,
+
+ins_intrq_irq,
+
+PNL_DO,
+PNL_DI,
+PNL_CLK,
+PNL_LE,
+PNL_STA
+);
+
+input					csi_clockreset_clk, csi_clockreset_reset_n;
+
+//Avalon Ports
+output	[7:0]	avs_psend_readdata;
+input		[7:0]	avs_psend_writedata;
+input					avs_psend_write_n;
+output				avs_psend_waitrequest_n;
+
+reg					avs_psend_waitrequest_n = 1'b1;
+
+output	[7:0]	avs_precv0_readdata, avs_precv1_readdata;
+output				avs_precv0_waitrequest_n, avs_precv1_waitrequest_n, ins_intrq_irq;
+
+reg					ins_intrq_irq = 1'b0;
+
+//Exports
+output				PNL_DO;
+input					PNL_DI, PNL_CLK, PNL_LE, PNL_STA;
+
+assign	PNL_DO = send_data | send_req;
+
+assign	avs_psend_readdata = shift_send[7:0];
+
+assign	avs_precv0_readdata = shift_recv[7:0];
+assign	avs_precv1_readdata = shift_recv[15:8];
+
+assign	avs_precv0_waitrequest_n = 1'b1;
+assign	avs_precv1_waitrequest_n = 1'b1;
+
+reg		[15:0]	shift_send = 0;
+reg					send_ok = 1'b0;
+reg					send_req = 1'b0;
+
+reg		[1:0]		wdata_state = 0;
+reg		[7:0]		wdata_timeout = 0;
+
+always@(posedge csi_clockreset_clk or negedge csi_clockreset_reset_n)
+begin
+	if(!csi_clockreset_reset_n) begin
+		shift_send <= 0;
+		send_ok <= 1'b0;
+		send_req <= 1'b0;
+		avs_psend_waitrequest_n <= 1'b1;
+		wdata_state <= 0;
+		wdata_timeout <= 0;
+	end
+	else begin
+		case(wdata_state)
+			0: begin
+				if(!avs_psend_write_n) begin
+					avs_psend_waitrequest_n <= 1'b0;
+					shift_send <= {8'h0000, avs_psend_writedata};
+					send_req <= 1'b1;
+					send_ok <= 1'b1;
+					wdata_state <= wdata_state + 1;
+					wdata_timeout <= 0;
+				end
+			end
+			
+			1: begin
+				if(PNL_LE) begin
+					send_req <= 1'b0;
+					wdata_timeout <= 0;
+					wdata_state <= wdata_state + 1;
+				end
+				else begin
+					if(wdata_timeout == 8'b11111111) begin
+						send_ok <= 1'b0;
+						send_req <= 1'b0;
+						avs_psend_waitrequest_n <= 1'b1;
+						wdata_state <= 0;
+					end
+					else wdata_timeout <= wdata_timeout + 1;
+				end
+			end
+			
+			2: begin
+				if(((shift_state == 16)||(wdata_timeout == 8'b11111111))&&(avs_psend_write_n)) begin
+					send_ok <= 1'b0;
+					avs_psend_waitrequest_n <= 1'b1;
+					wdata_state <= 0;
+				end
+				else wdata_timeout <= wdata_timeout + 1;
+			end
+			
+			default: begin
+				send_ok <= 1'b0;
+				send_req <= 1'b0;
+				avs_psend_waitrequest_n <= 1'b1;
+				wdata_state <= 0;
+				wdata_timeout <= 0;
+			end
+		endcase
+	end
+end
+
+reg		[4:0]		shift_state = 0;
+reg					send_data = 1'b0;
+reg		[15:0]	shift_recv = 0;
+wire					shift_reset;
+assign	shift_reset = ~PNL_LE;
+
+
+always@(posedge PNL_CLK or negedge shift_reset or negedge csi_clockreset_reset_n)
+begin
+	if((!shift_reset)||(!csi_clockreset_reset_n)) begin
+		shift_state <= 0;
+		shift_recv <= 0;
+		send_data <= 1'b0;
+	end
+	else begin
+		case(shift_state)
+			0:	 begin shift_state <= shift_state + 1; shift_recv[15] <= PNL_DI; if(send_ok) send_data <= shift_send[15]; else send_data <= 1'b0; end
+			1:	 begin shift_state <= shift_state + 1; shift_recv[14] <= PNL_DI; if(send_ok) send_data <= shift_send[14]; else send_data <= 1'b0; end
+			2:	 begin shift_state <= shift_state + 1; shift_recv[13] <= PNL_DI; if(send_ok) send_data <= shift_send[13]; else send_data <= 1'b0; end
+			3:	 begin shift_state <= shift_state + 1; shift_recv[12] <= PNL_DI; if(send_ok) send_data <= shift_send[12]; else send_data <= 1'b0; end
+			4:	 begin shift_state <= shift_state + 1; shift_recv[11] <= PNL_DI; if(send_ok) send_data <= shift_send[11]; else send_data <= 1'b0; end
+			5:	 begin shift_state <= shift_state + 1; shift_recv[10] <= PNL_DI; if(send_ok) send_data <= shift_send[10]; else send_data <= 1'b0; end
+			6:	 begin shift_state <= shift_state + 1; shift_recv[9]  <= PNL_DI; if(send_ok) send_data <= shift_send[9];  else send_data <= 1'b0; end
+			7:	 begin shift_state <= shift_state + 1; shift_recv[8]  <= PNL_DI; if(send_ok) send_data <= shift_send[8];  else send_data <= 1'b0; end
+			8:	 begin shift_state <= shift_state + 1; shift_recv[7]  <= PNL_DI; if(send_ok) send_data <= shift_send[7];  else send_data <= 1'b0; end
+			9:	 begin shift_state <= shift_state + 1; shift_recv[6]  <= PNL_DI; if(send_ok) send_data <= shift_send[6];  else send_data <= 1'b0; end
+			10: begin shift_state <= shift_state + 1; shift_recv[5]  <= PNL_DI; if(send_ok) send_data <= shift_send[5];  else send_data <= 1'b0; end
+			11: begin shift_state <= shift_state + 1; shift_recv[4]  <= PNL_DI; if(send_ok) send_data <= shift_send[4];  else send_data <= 1'b0; end
+			12: begin shift_state <= shift_state + 1; shift_recv[3]  <= PNL_DI; if(send_ok) send_data <= shift_send[3];  else send_data <= 1'b0; end
+			13: begin shift_state <= shift_state + 1; shift_recv[2]  <= PNL_DI; if(send_ok) send_data <= shift_send[2];  else send_data <= 1'b0; end
+			14: begin shift_state <= shift_state + 1; shift_recv[1]  <= PNL_DI; if(send_ok) send_data <= shift_send[1];  else send_data <= 1'b0; end
+			15: begin shift_state <= shift_state + 1; shift_recv[0]  <= PNL_DI; if(send_ok) send_data <= shift_send[0];  else send_data <= 1'b0; end
+			16: begin send_data <= 1'b0; end
+			default: begin shift_state <= 0; shift_recv <= 0; send_data <= 1'b0; end
+		endcase
+	end
+end
+
+reg		[3:0]		intrq_cnt = 0;
+reg					intrq_state = 1'b0;
+
+always@(posedge csi_clockreset_clk or negedge csi_clockreset_reset_n)
+begin
+	if(!csi_clockreset_reset_n) begin
+		ins_intrq_irq <= 1'b0;
+		intrq_cnt <= 0;
+		intrq_state <= 1'b0;
+	end
+	else begin
+		case(intrq_state)
+			1'b0: begin
+				if((shift_state == 16)&&(!send_ok)) begin intrq_state <= 1; ins_intrq_irq <= 1'b1; intrq_cnt <= 0; end
+			end
+			
+			1'b1: begin
+				if(intrq_cnt != 4'b1111) intrq_cnt <= intrq_cnt + 1;
+				else begin
+					if(shift_state == 0) intrq_state <= 0;
+					ins_intrq_irq <= 1'b0;
+				end
+			end
+		endcase
+	end
+end
+
+endmodule

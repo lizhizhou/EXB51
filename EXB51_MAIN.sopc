@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name="EXB51_MAIN">
+ <parameter name="bonusData"><![CDATA[bonusData 
+{
+   element EXB51_MAIN
+   {
+   }
+   element H00_SEM51Host
+   {
+      datum _sortIndex
+      {
+         value = "1";
+         type = "int";
+      }
+   }
+   element MCU_CLK
+   {
+      datum _sortIndex
+      {
+         value = "0";
+         type = "int";
+      }
+   }
+   element S00_ChipID
+   {
+      datum _sortIndex
+      {
+         value = "2";
+         type = "int";
+      }
+   }
+   element S01_Reset
+   {
+      datum _sortIndex
+      {
+         value = "3";
+         type = "int";
+      }
+   }
+   element S02_OptKey
+   {
+      datum _sortIndex
+      {
+         value = "4";
+         type = "int";
+      }
+   }
+   element S03_IntrqKey
+   {
+      datum _sortIndex
+      {
+         value = "5";
+         type = "int";
+      }
+   }
+   element S10_PNLCtrl
+   {
+      datum _sortIndex
+      {
+         value = "6";
+         type = "int";
+      }
+   }
+   element S11_T6963_LCD
+   {
+      datum _sortIndex
+      {
+         value = "7";
+         type = "int";
+      }
+   }
+   element S20_ATA8_Interface
+   {
+      datum _sortIndex
+      {
+         value = "8";
+         type = "int";
+      }
+   }
+   element S10_PNLCtrl.addr
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "16";
+         type = "long";
+      }
+   }
+   element S20_ATA8_Interface.ata
+   {
+      datum baseAddress
+      {
+         value = "64";
+         type = "long";
+      }
+   }
+   element S10_PNLCtrl.ctrl
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "21";
+         type = "long";
+      }
+   }
+   element S00_ChipID.idout
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+   }
+   element S03_IntrqKey.intkey
+   {
+      datum baseAddress
+      {
+         value = "3";
+         type = "long";
+      }
+   }
+   element S10_PNLCtrl.key0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "17";
+         type = "long";
+      }
+   }
+   element S10_PNLCtrl.key1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "18";
+         type = "long";
+      }
+   }
+   element S10_PNLCtrl.key2
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "19";
+         type = "long";
+      }
+   }
+   element S10_PNLCtrl.key3
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "20";
+         type = "long";
+      }
+   }
+   element S11_T6963_LCD.lcd
+   {
+      datum baseAddress
+      {
+         value = "32";
+         type = "long";
+      }
+   }
+   element S02_OptKey.optkey
+   {
+      datum baseAddress
+      {
+         value = "2";
+         type = "long";
+      }
+   }
+   element S01_Reset.reset
+   {
+      datum baseAddress
+      {
+         value = "1";
+         type = "long";
+      }
+   }
+}
+]]></parameter>
+ <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
+ <parameter name="deviceFamily" value="CYCLONEIII" />
+ <parameter name="fabricMode" value="SOPC" />
+ <parameter name="generateLegacySim" value="false" />
+ <parameter name="generationId" value="0" />
+ <parameter name="globalResetBus" value="true" />
+ <parameter name="hdlLanguage" value="VERILOG" />
+ <parameter name="maxAdditionalLatency" value="0" />
+ <parameter name="projectName" value="EXB-100-U1.qpf" />
+ <parameter name="sopcBorderPoints" value="true" />
+ <parameter name="systemHash" value="-2665518522" />
+ <parameter name="timeStamp" value="1308904705401" />
+ <module kind="clock_source" version="10.1" enabled="1" name="MCU_CLK">
+  <parameter name="clockFrequency" value="48000000" />
+  <parameter name="clockFrequencyKnown" value="true" />
+  <parameter name="inputClockFrequency" value="0" />
+  <parameter name="resetSynchronousEdges" value="NONE" />
+ </module>
+ <module kind="SOPC_SEM51Host" version="1.1" enabled="1" name="H00_SEM51Host">
+  <parameter name="AUTO_CLOCKRESET_CLOCK_RATE" value="48000000" />
+ </module>
+ <module kind="SOPC_ChipID" version="1.0" enabled="1" name="S00_ChipID">
+  <parameter name="AUTO_CLOCKRESET_CLOCK_RATE" value="48000000" />
+ </module>
+ <module kind="SOPC_GlobalReset" version="1.0" enabled="1" name="S01_Reset">
+  <parameter name="AUTO_CLOCKRESET_CLOCK_RATE" value="48000000" />
+ </module>
+ <module kind="SOPC_OptionKey" version="1.0" enabled="1" name="S02_OptKey">
+  <parameter name="AUTO_CLOCKRESET_CLOCK_RATE" value="48000000" />
+ </module>
+ <module kind="SOPC_IntKey" version="1.0" enabled="1" name="S03_IntrqKey">
+  <parameter name="AUTO_CLOCKRESET_CLOCK_RATE" value="48000000" />
+ </module>
+ <module kind="SOPC_MemLCD" version="1.0" enabled="1" name="S11_T6963_LCD">
+  <parameter name="AUTO_CLOCKRESET_CLOCK_RATE" value="48000000" />
+ </module>
+ <module
+   kind="SOPC_ATAPort"
+   version="1.0"
+   enabled="1"
+   name="S20_ATA8_Interface">
+  <parameter name="AUTO_CLOCKRESET_CLOCK_RATE" value="48000000" />
+ </module>
+ <module kind="SOPC_PNLPort" version="1.0" enabled="1" name="S10_PNLCtrl" />
+ <connection
+   kind="clock"
+   version="10.1"
+   start="MCU_CLK.clk"
+   end="H00_SEM51Host.clockreset" />
+ <connection
+   kind="clock"
+   version="10.1"
+   start="MCU_CLK.clk"
+   end="S00_ChipID.clockreset" />
+ <connection
+   kind="avalon"
+   version="10.1"
+   start="H00_SEM51Host.m0"
+   end="S00_ChipID.idout">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+ </connection>
+ <connection
+   kind="clock"
+   version="10.1"
+   start="MCU_CLK.clk"
+   end="S01_Reset.clockreset" />
+ <connection
+   kind="avalon"
+   version="10.1"
+   start="H00_SEM51Host.m0"
+   end="S01_Reset.reset">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0001" />
+ </connection>
+ <connection
+   kind="clock"
+   version="10.1"
+   start="MCU_CLK.clk"
+   end="S02_OptKey.clockreset" />
+ <connection
+   kind="avalon"
+   version="10.1"
+   start="H00_SEM51Host.m0"
+   end="S02_OptKey.optkey">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0002" />
+ </connection>
+ <connection
+   kind="clock"
+   version="10.1"
+   start="MCU_CLK.clk"
+   end="S03_IntrqKey.clockreset" />
+ <connection
+   kind="interrupt"
+   version="10.1"
+   start="H00_SEM51Host.irq0"
+   end="S03_IntrqKey.intrq">
+  <parameter name="irqNumber" value="1" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="10.1"
+   start="H00_SEM51Host.m0"
+   end="S03_IntrqKey.intkey">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0003" />
+ </connection>
+ <connection
+   kind="clock"
+   version="10.1"
+   start="MCU_CLK.clk"
+   end="S11_T6963_LCD.clockreset" />
+ <connection
+   kind="avalon"
+   version="10.1"
+   start="H00_SEM51Host.m0"
+   end="S11_T6963_LCD.lcd">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0020" />
+ </connection>
+ <connection
+   kind="clock"
+   version="10.1"
+   start="MCU_CLK.clk"
+   end="S20_ATA8_Interface.clockreset" />
+ <connection
+   kind="interrupt"
+   version="10.1"
+   start="H00_SEM51Host.irq0"
+   end="S20_ATA8_Interface.intrq">
+  <parameter name="irqNumber" value="2" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="10.1"
+   start="H00_SEM51Host.m0"
+   end="S20_ATA8_Interface.ata">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0040" />
+ </connection>
+ <connection
+   kind="clock"
+   version="10.1"
+   start="MCU_CLK.clk"
+   end="S10_PNLCtrl.clockreset" />
+ <connection
+   kind="interrupt"
+   version="10.1"
+   start="H00_SEM51Host.irq0"
+   end="S10_PNLCtrl.event">
+  <parameter name="irqNumber" value="0" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="10.1"
+   start="H00_SEM51Host.m0"
+   end="S10_PNLCtrl.addr">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0010" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="10.1"
+   start="H00_SEM51Host.m0"
+   end="S10_PNLCtrl.key1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0012" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="10.1"
+   start="H00_SEM51Host.m0"
+   end="S10_PNLCtrl.key0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0011" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="10.1"
+   start="H00_SEM51Host.m0"
+   end="S10_PNLCtrl.key2">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0013" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="10.1"
+   start="H00_SEM51Host.m0"
+   end="S10_PNLCtrl.ctrl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0015" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="10.1"
+   start="H00_SEM51Host.m0"
+   end="S10_PNLCtrl.key3">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0014" />
+ </connection>
+</system>
