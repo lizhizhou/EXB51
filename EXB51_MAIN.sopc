@@ -92,10 +92,23 @@
    }
    element S20_ATA8_Interface.ata
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "64";
          type = "long";
+      }
+   }
+   element brushlessmotor_0
+   {
+      datum _sortIndex
+      {
+         value = "9";
+         type = "int";
       }
    }
    element S10_PNLCtrl.ctrl
@@ -109,6 +122,19 @@
       {
          value = "21";
          type = "long";
+      }
+   }
+   element brushlessmotor_0.ctrl
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "96";
+         type = "String";
       }
    }
    element S00_ChipID.idout
@@ -181,6 +207,11 @@
    }
    element S11_T6963_LCD.lcd
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "32";
@@ -206,7 +237,9 @@
 }
 ]]></parameter>
  <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
- <parameter name="deviceFamily" value="CYCLONEIII" />
+ <parameter name="device" value="EP3C10F256C8" />
+ <parameter name="deviceFamily" value="Cyclone III" />
+ <parameter name="deviceSpeedGrade" value="Unknown" />
  <parameter name="fabricMode" value="SOPC" />
  <parameter name="generateLegacySim" value="false" />
  <parameter name="generationId" value="0" />
@@ -215,9 +248,10 @@
  <parameter name="maxAdditionalLatency" value="0" />
  <parameter name="projectName" value="EXB-100-U1.qpf" />
  <parameter name="sopcBorderPoints" value="true" />
- <parameter name="systemHash" value="-2665518522" />
- <parameter name="timeStamp" value="1308904705401" />
- <module kind="clock_source" version="10.1" enabled="1" name="MCU_CLK">
+ <parameter name="systemHash" value="-1290947421" />
+ <parameter name="timeStamp" value="1388559959198" />
+ <parameter name="useTestBenchNamingPattern" value="false" />
+ <module kind="clock_source" version="12.1" enabled="1" name="MCU_CLK">
   <parameter name="clockFrequency" value="48000000" />
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
@@ -248,20 +282,27 @@
    name="S20_ATA8_Interface">
   <parameter name="AUTO_CLOCKRESET_CLOCK_RATE" value="48000000" />
  </module>
- <module kind="SOPC_PNLPort" version="1.0" enabled="1" name="S10_PNLCtrl" />
+ <module kind="SOPC_PNLPort" version="1.0" enabled="1" name="S10_PNLCtrl">
+  <parameter name="AUTO_CLOCKRESET_CLOCK_RATE" value="48000000" />
+ </module>
+ <module
+   kind="brushlessmotor"
+   version="1.0"
+   enabled="1"
+   name="brushlessmotor_0" />
  <connection
    kind="clock"
-   version="10.1"
+   version="12.1"
    start="MCU_CLK.clk"
    end="H00_SEM51Host.clockreset" />
  <connection
    kind="clock"
-   version="10.1"
+   version="12.1"
    start="MCU_CLK.clk"
    end="S00_ChipID.clockreset" />
  <connection
    kind="avalon"
-   version="10.1"
+   version="12.1"
    start="H00_SEM51Host.m0"
    end="S00_ChipID.idout">
   <parameter name="arbitrationPriority" value="1" />
@@ -269,12 +310,12 @@
  </connection>
  <connection
    kind="clock"
-   version="10.1"
+   version="12.1"
    start="MCU_CLK.clk"
    end="S01_Reset.clockreset" />
  <connection
    kind="avalon"
-   version="10.1"
+   version="12.1"
    start="H00_SEM51Host.m0"
    end="S01_Reset.reset">
   <parameter name="arbitrationPriority" value="1" />
@@ -282,12 +323,12 @@
  </connection>
  <connection
    kind="clock"
-   version="10.1"
+   version="12.1"
    start="MCU_CLK.clk"
    end="S02_OptKey.clockreset" />
  <connection
    kind="avalon"
-   version="10.1"
+   version="12.1"
    start="H00_SEM51Host.m0"
    end="S02_OptKey.optkey">
   <parameter name="arbitrationPriority" value="1" />
@@ -295,19 +336,19 @@
  </connection>
  <connection
    kind="clock"
-   version="10.1"
+   version="12.1"
    start="MCU_CLK.clk"
    end="S03_IntrqKey.clockreset" />
  <connection
    kind="interrupt"
-   version="10.1"
+   version="12.1"
    start="H00_SEM51Host.irq0"
    end="S03_IntrqKey.intrq">
   <parameter name="irqNumber" value="1" />
  </connection>
  <connection
    kind="avalon"
-   version="10.1"
+   version="12.1"
    start="H00_SEM51Host.m0"
    end="S03_IntrqKey.intkey">
   <parameter name="arbitrationPriority" value="1" />
@@ -315,12 +356,12 @@
  </connection>
  <connection
    kind="clock"
-   version="10.1"
+   version="12.1"
    start="MCU_CLK.clk"
    end="S11_T6963_LCD.clockreset" />
  <connection
    kind="avalon"
-   version="10.1"
+   version="12.1"
    start="H00_SEM51Host.m0"
    end="S11_T6963_LCD.lcd">
   <parameter name="arbitrationPriority" value="1" />
@@ -328,19 +369,19 @@
  </connection>
  <connection
    kind="clock"
-   version="10.1"
+   version="12.1"
    start="MCU_CLK.clk"
    end="S20_ATA8_Interface.clockreset" />
  <connection
    kind="interrupt"
-   version="10.1"
+   version="12.1"
    start="H00_SEM51Host.irq0"
    end="S20_ATA8_Interface.intrq">
   <parameter name="irqNumber" value="2" />
  </connection>
  <connection
    kind="avalon"
-   version="10.1"
+   version="12.1"
    start="H00_SEM51Host.m0"
    end="S20_ATA8_Interface.ata">
   <parameter name="arbitrationPriority" value="1" />
@@ -348,19 +389,19 @@
  </connection>
  <connection
    kind="clock"
-   version="10.1"
+   version="12.1"
    start="MCU_CLK.clk"
    end="S10_PNLCtrl.clockreset" />
  <connection
    kind="interrupt"
-   version="10.1"
+   version="12.1"
    start="H00_SEM51Host.irq0"
    end="S10_PNLCtrl.event">
   <parameter name="irqNumber" value="0" />
  </connection>
  <connection
    kind="avalon"
-   version="10.1"
+   version="12.1"
    start="H00_SEM51Host.m0"
    end="S10_PNLCtrl.addr">
   <parameter name="arbitrationPriority" value="1" />
@@ -368,7 +409,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="10.1"
+   version="12.1"
    start="H00_SEM51Host.m0"
    end="S10_PNLCtrl.key1">
   <parameter name="arbitrationPriority" value="1" />
@@ -376,7 +417,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="10.1"
+   version="12.1"
    start="H00_SEM51Host.m0"
    end="S10_PNLCtrl.key0">
   <parameter name="arbitrationPriority" value="1" />
@@ -384,7 +425,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="10.1"
+   version="12.1"
    start="H00_SEM51Host.m0"
    end="S10_PNLCtrl.key2">
   <parameter name="arbitrationPriority" value="1" />
@@ -392,7 +433,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="10.1"
+   version="12.1"
    start="H00_SEM51Host.m0"
    end="S10_PNLCtrl.ctrl">
   <parameter name="arbitrationPriority" value="1" />
@@ -400,10 +441,23 @@
  </connection>
  <connection
    kind="avalon"
-   version="10.1"
+   version="12.1"
    start="H00_SEM51Host.m0"
    end="S10_PNLCtrl.key3">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0014" />
+ </connection>
+ <connection
+   kind="clock"
+   version="12.1"
+   start="MCU_CLK.clk"
+   end="brushlessmotor_0.mclk" />
+ <connection
+   kind="avalon"
+   version="12.1"
+   start="H00_SEM51Host.m0"
+   end="brushlessmotor_0.ctrl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0060" />
  </connection>
 </system>

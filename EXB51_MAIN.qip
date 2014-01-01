@@ -1,36 +1,42 @@
 # MCU_CLK
 # H00_SEM51Host
-set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) sopc_root/SOPC_SEM51Host_hw.tcl]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) sopc_root/SOPC_SEM51Host.v]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) H00_SEM51Host.v]
+set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) "sopc_root/SOPC_SEM51Host_hw.tcl"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "sopc_root/SOPC_SEM51Host.v"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "H00_SEM51Host.v"]
 # S00_ChipID
-set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) sopc_root/SOPC_ChipID_hw.tcl]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) sopc_root/SOPC_ChipID.v]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) S00_ChipID.v]
+set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) "sopc_root/SOPC_ChipID_hw.tcl"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "sopc_root/SOPC_ChipID.v"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "S00_ChipID.v"]
 # S01_Reset
-set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) sopc_root/SOPC_GlobalReset_hw.tcl]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) sopc_root/SOPC_GlobalReset.v]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) S01_Reset.v]
+set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) "sopc_root/SOPC_GlobalReset_hw.tcl"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "sopc_root/SOPC_GlobalReset.v"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "S01_Reset.v"]
 # S02_OptKey
-set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) sopc_root/SOPC_OptionKey_hw.tcl]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) sopc_root/SOPC_OptionKey.v]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) S02_OptKey.v]
+set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) "sopc_root/SOPC_OptionKey_hw.tcl"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "sopc_root/SOPC_OptionKey.v"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "S02_OptKey.v"]
 # S03_IntrqKey
-set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) sopc_root/SOPC_IntKey_hw.tcl]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) sopc_root/SOPC_IntKey.v]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) S03_IntrqKey.v]
+set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) "sopc_root/SOPC_IntKey_hw.tcl"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "sopc_root/SOPC_IntKey.v"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "S03_IntrqKey.v"]
 # S11_T6963_LCD
-set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) sopc_root/SOPC_MemLCD_hw.tcl]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) sopc_root/SOPC_MemLCD.v]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) S11_T6963_LCD.v]
+set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) "sopc_root/SOPC_MemLCD_hw.tcl"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "sopc_root/SOPC_MemLCD.v"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "S11_T6963_LCD.v"]
 # S20_ATA8_Interface
-set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) sopc_root/SOPC_ATAPort_hw.tcl]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) sopc_root/SOPC_ATAPort.v]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) S20_ATA8_Interface.v]
-# null
+set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) "sopc_root/SOPC_ATAPort_hw.tcl"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "sopc_root/SOPC_ATAPort.v"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "S20_ATA8_Interface.v"]
 # S10_PNLCtrl
-set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) sopc_root/SOPC_PNLPort_hw.tcl]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) sopc_root/SOPC_PNLPort.v]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) S10_PNLCtrl.v]
-set_global_assignment -name SOPC_BUILDER_SIGNATURE_ID 001FD0268FA100000130C0CCE656 
- 
+set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) "sopc_root/SOPC_PNLPort_hw.tcl"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "sopc_root/SOPC_PNLPort.v"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "S10_PNLCtrl.v"]
+# brushlessmotor_0
+set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) "brushlessmotor_hw.tcl"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "sopc_root/brushless_motor_driver.v"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "brushlessmotor_0.v"]
+# null
+set_global_assignment -name SOPC_BUILDER_SIGNATURE_ID "005056C00008000001434CA21CAA"
+set_global_assignment -entity "EXB51_MAIN" -name IP_TOOL_NAME "sopc"
+set_global_assignment -entity "EXB51_MAIN" -name IP_TOOL_VERSION "12.1sp1"
+set_global_assignment -entity "EXB51_MAIN" -name IP_TOOL_ENV "sopc"

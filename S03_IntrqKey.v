@@ -1,8 +1,9 @@
 // S03_IntrqKey.v
 
-// This file was auto-generated as part of a SOPC Builder generate operation.
+// This file was auto-generated as part of a generation operation.
 // If you edit it your changes will probably be lost.
 
+`timescale 1 ps / 1 ps
 module S03_IntrqKey (
 		input  wire       csi_clockreset_clk,       //       clockreset.clk
 		input  wire       csi_clockreset_reset_n,   // clockreset_reset.reset_n
