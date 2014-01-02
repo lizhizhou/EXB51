@@ -1,4 +1,4 @@
-module frequentmeasure#(
+module frequent_measure(
 // Qsys bus interface	
 		input					rsi_MRST_reset,
 		input					csi_MCLK_clk,
@@ -9,7 +9,7 @@ module frequentmeasure#(
 		input					avs_ctrl_read,
 		
 		//brushless_moter_interface		
-		input frequent,	
+		input frequent	
 		);
 		wire clk;
 		wire gate;
@@ -26,13 +26,15 @@ module frequentmeasure#(
 		assign f2=clk &  temp;
 		always@(posedge frequent)
 			temp<=gate;
-		reg reset
+		reg reset;
+		reg ready;
 		reg [7:0]state;												
 		reg [7:0]nextstate;	
 		always@(posedge clk or posedge reset) 
 			if(reset)state<=1;
 			else state<=nextstate;
 		always@(state or temp)
+		begin
 			case(state)
 			1:if(temp==0)nextstate=2;else nextstate=1;	
 			2:if(temp==1)nextstate=3;else nextstate=2;  
