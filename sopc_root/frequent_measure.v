@@ -1,5 +1,5 @@
 module frequent_measure(
-// Qsys bus interface	
+		// Qsys bus interface	
 		input					rsi_MRST_reset,
 		input					csi_MCLK_clk,
 		input		[7:0]	   avs_ctrl_writedata,

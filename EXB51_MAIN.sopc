@@ -111,6 +111,32 @@
          type = "int";
       }
    }
+   element brushlessmotor_0.ctrl
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "96";
+         type = "String";
+      }
+   }
+   element frequent_measure_0.ctrl
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "128";
+         type = "String";
+      }
+   }
    element S10_PNLCtrl.ctrl
    {
       datum _lockedAddress
@@ -124,17 +150,12 @@
          type = "long";
       }
    }
-   element brushlessmotor_0.ctrl
+   element frequent_measure_0
    {
-      datum _lockedAddress
+      datum _sortIndex
       {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "96";
-         type = "String";
+         value = "10";
+         type = "int";
       }
    }
    element S00_ChipID.idout
@@ -237,7 +258,7 @@
 }
 ]]></parameter>
  <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
- <parameter name="device" value="EP3C10F256C8" />
+ <parameter name="device" value="Unknown" />
  <parameter name="deviceFamily" value="Cyclone III" />
  <parameter name="deviceSpeedGrade" value="Unknown" />
  <parameter name="fabricMode" value="SOPC" />
@@ -248,8 +269,8 @@
  <parameter name="maxAdditionalLatency" value="0" />
  <parameter name="projectName" value="EXB-100-U1.qpf" />
  <parameter name="sopcBorderPoints" value="true" />
- <parameter name="systemHash" value="-1290947421" />
- <parameter name="timeStamp" value="1388559959198" />
+ <parameter name="systemHash" value="-2994891569" />
+ <parameter name="timeStamp" value="1388808534505" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <module kind="clock_source" version="12.1" enabled="1" name="MCU_CLK">
   <parameter name="clockFrequency" value="48000000" />
@@ -286,10 +307,19 @@
   <parameter name="AUTO_CLOCKRESET_CLOCK_RATE" value="48000000" />
  </module>
  <module
+   kind="frequent_measure"
+   version="1.0"
+   enabled="0"
+   name="frequent_measure_0">
+  <parameter name="AUTO_MCLK_CLOCK_RATE" value="48000000" />
+ </module>
+ <module
    kind="brushlessmotor"
    version="1.0"
    enabled="1"
-   name="brushlessmotor_0" />
+   name="brushlessmotor_0">
+  <parameter name="AUTO_MCLK_CLOCK_RATE" value="48000000" />
+ </module>
  <connection
    kind="clock"
    version="12.1"
@@ -446,6 +476,19 @@
    end="S10_PNLCtrl.key3">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0014" />
+ </connection>
+ <connection
+   kind="clock"
+   version="12.1"
+   start="MCU_CLK.clk"
+   end="frequent_measure_0.mclk" />
+ <connection
+   kind="avalon"
+   version="12.1"
+   start="H00_SEM51Host.m0"
+   end="frequent_measure_0.ctrl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0080" />
  </connection>
  <connection
    kind="clock"

@@ -71,21 +71,20 @@ module brushless_motor(
 	wire csi_PWMCLK_clk;
 	assign rsi_PWMRST_reset = rsi_MRST_reset;
    assign csi_PWMCLK_clk = csi_MCLK_clk;
-//PWM controller		
-	reg [31:0] PWM;
-	reg PWM_out;
-	always @ (posedge csi_PWMCLK_clk or posedge rsi_PWMRST_reset)
-	begin
-		if(rsi_PWMRST_reset)
-			PWM <= 32'b0;
-		else
-		begin
-			PWM <= PWM + PWM_frequent;
-			PWM_out <=(PWM > PWM_width) ? 0:1;   
-		end
-	end
-//	assign PWM_out = 1;
-	
+	//PWM controller		
+//	reg [31:0] PWM;
+//	reg PWM_out;
+//	always @ (posedge csi_PWMCLK_clk or posedge rsi_PWMRST_reset)
+//	begin
+//		if(rsi_PWMRST_reset)
+//			PWM <= 32'b0;
+//		else
+//		begin
+//			PWM <= PWM + PWM_frequent;
+//			PWM_out <=(PWM > PWM_width) ? 0:1;   
+//		end
+//	end
+	assign PWM_out = 1;
 //Brushless motor controller 			
 	reg Lau_r;		
 	reg Lbu_r;
@@ -93,7 +92,7 @@ module brushless_motor(
 	reg Lad_r;
 	reg Lbd_r;
 	reg Lcd_r;		
-	always @(Ha or Hb or Hc)
+	always @(Ha or Hb or Hc or I_limit or brake or forward_back)
 	begin
 		if(I_limit)
 			{Lau_r,Lbu_r,Lcu_r,Lad_r,Lbd_r,Lcd_r}<= 6'd0;
