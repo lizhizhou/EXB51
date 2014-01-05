@@ -45,11 +45,11 @@ module frequent_measure(
 		
 		reg [31:0]a;
 		reg [31:0]b;
-		always @ (posedge f1 or negedge reset)
+		always @ (posedge f1 or posedge reset)
 			if(reset)a<=0;
 			else if(state==4)a<=a;						
 			else a<=a+1;			
-		always @ (posedge f2 or negedge reset)
+		always @ (posedge f2 or posedge reset)
 			if(reset)b<=0;
 			else if(state==4)b<=b;
 			else b<=b+1;
@@ -68,21 +68,22 @@ module frequent_measure(
 			else if(avs_ctrl_write) 
 			begin
 				case(avs_ctrl_address)
-					9: reset <= avs_ctrl_writedata[0];	
+					0: reset <= avs_ctrl_writedata[0];	
 					default:;
 				endcase
 			end
 			else begin
 				case(avs_ctrl_address)
-					0:read_data<=a[7:0];
-					1:read_data<=a[15:8];
-					2:read_data<=a[23:16];
-					3:read_data<=a[31:24];
-					4:read_data<=b[7:0];
-					5:read_data<=b[15:8];
-					6:read_data<=b[23:16];
-					7:read_data<=b[31:24];
-					8:read_data<= ready;
+					0:read_data<= reset;
+					1:read_data<= ready;
+					2:read_data<=a[7:0];
+					3:read_data<=a[15:8];
+					4:read_data<=a[23:16];
+					5:read_data<=a[31:24];
+					6:read_data<=b[7:0];
+					7:read_data<=b[15:8];
+					8:read_data<=b[23:16];
+					9:read_data<=b[31:24];
 					default: read_data <= 8'b0;
 				endcase
 			end
