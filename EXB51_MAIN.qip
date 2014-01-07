@@ -31,12 +31,16 @@ set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "S20_AT
 set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) "sopc_root/SOPC_PNLPort_hw.tcl"]
 set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "sopc_root/SOPC_PNLPort.v"]
 set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "S10_PNLCtrl.v"]
+# frequent_measure_0
+set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) "sopc_root/frequentmeasure_hw.tcl"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "sopc_root/frequent_measure.v"]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "frequent_measure_0.v"]
 # brushlessmotor_0
 set_global_assignment -name TCL_FILE [file join $::quartus(qip_path) "sopc_root/brushlessmotor_hw.tcl"]
 set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "sopc_root/brushless_motor_driver.v"]
 set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "brushlessmotor_0.v"]
 # null
-set_global_assignment -name SOPC_BUILDER_SIGNATURE_ID "005056C00008000001435B708185"
+set_global_assignment -name SOPC_BUILDER_SIGNATURE_ID "005056C00008000001436CC0CFF6"
 set_global_assignment -entity "EXB51_MAIN" -name IP_TOOL_NAME "sopc"
 set_global_assignment -entity "EXB51_MAIN" -name IP_TOOL_VERSION "12.1sp1"
 set_global_assignment -entity "EXB51_MAIN" -name IP_TOOL_ENV "sopc"

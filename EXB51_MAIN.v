@@ -38,6 +38,7 @@ module H00_SEM51Host_m0_arbitrator (
                                       H00_SEM51Host_granted_S11_T6963_LCD_lcd,
                                       H00_SEM51Host_granted_S20_ATA8_Interface_ata,
                                       H00_SEM51Host_granted_brushlessmotor_0_ctrl,
+                                      H00_SEM51Host_granted_frequent_measure_0_ctrl,
                                       H00_SEM51Host_m0_address,
                                       H00_SEM51Host_m0_chipselect_n,
                                       H00_SEM51Host_m0_read_n,
@@ -56,6 +57,7 @@ module H00_SEM51Host_m0_arbitrator (
                                       H00_SEM51Host_qualified_request_S11_T6963_LCD_lcd,
                                       H00_SEM51Host_qualified_request_S20_ATA8_Interface_ata,
                                       H00_SEM51Host_qualified_request_brushlessmotor_0_ctrl,
+                                      H00_SEM51Host_qualified_request_frequent_measure_0_ctrl,
                                       H00_SEM51Host_read_data_valid_S00_ChipID_idout,
                                       H00_SEM51Host_read_data_valid_S01_Reset_reset,
                                       H00_SEM51Host_read_data_valid_S02_OptKey_optkey,
@@ -69,6 +71,7 @@ module H00_SEM51Host_m0_arbitrator (
                                       H00_SEM51Host_read_data_valid_S11_T6963_LCD_lcd,
                                       H00_SEM51Host_read_data_valid_S20_ATA8_Interface_ata,
                                       H00_SEM51Host_read_data_valid_brushlessmotor_0_ctrl,
+                                      H00_SEM51Host_read_data_valid_frequent_measure_0_ctrl,
                                       H00_SEM51Host_requests_S00_ChipID_idout,
                                       H00_SEM51Host_requests_S01_Reset_reset,
                                       H00_SEM51Host_requests_S02_OptKey_optkey,
@@ -82,6 +85,7 @@ module H00_SEM51Host_m0_arbitrator (
                                       H00_SEM51Host_requests_S11_T6963_LCD_lcd,
                                       H00_SEM51Host_requests_S20_ATA8_Interface_ata,
                                       H00_SEM51Host_requests_brushlessmotor_0_ctrl,
+                                      H00_SEM51Host_requests_frequent_measure_0_ctrl,
                                       S00_ChipID_idout_readdata_from_sa,
                                       S00_ChipID_idout_waitrequest_n_from_sa,
                                       S01_Reset_reset_readdata_from_sa,
@@ -124,6 +128,8 @@ module H00_SEM51Host_m0_arbitrator (
                                       d1_S11_T6963_LCD_lcd_end_xfer,
                                       d1_S20_ATA8_Interface_ata_end_xfer,
                                       d1_brushlessmotor_0_ctrl_end_xfer,
+                                      d1_frequent_measure_0_ctrl_end_xfer,
+                                      frequent_measure_0_ctrl_readdata_from_sa,
                                       reset_n,
 
                                      // outputs:
@@ -153,6 +159,7 @@ module H00_SEM51Host_m0_arbitrator (
   input            H00_SEM51Host_granted_S11_T6963_LCD_lcd;
   input            H00_SEM51Host_granted_S20_ATA8_Interface_ata;
   input            H00_SEM51Host_granted_brushlessmotor_0_ctrl;
+  input            H00_SEM51Host_granted_frequent_measure_0_ctrl;
   input   [ 12: 0] H00_SEM51Host_m0_address;
   input            H00_SEM51Host_m0_chipselect_n;
   input            H00_SEM51Host_m0_read_n;
@@ -171,6 +178,7 @@ module H00_SEM51Host_m0_arbitrator (
   input            H00_SEM51Host_qualified_request_S11_T6963_LCD_lcd;
   input            H00_SEM51Host_qualified_request_S20_ATA8_Interface_ata;
   input            H00_SEM51Host_qualified_request_brushlessmotor_0_ctrl;
+  input            H00_SEM51Host_qualified_request_frequent_measure_0_ctrl;
   input            H00_SEM51Host_read_data_valid_S00_ChipID_idout;
   input            H00_SEM51Host_read_data_valid_S01_Reset_reset;
   input            H00_SEM51Host_read_data_valid_S02_OptKey_optkey;
@@ -184,6 +192,7 @@ module H00_SEM51Host_m0_arbitrator (
   input            H00_SEM51Host_read_data_valid_S11_T6963_LCD_lcd;
   input            H00_SEM51Host_read_data_valid_S20_ATA8_Interface_ata;
   input            H00_SEM51Host_read_data_valid_brushlessmotor_0_ctrl;
+  input            H00_SEM51Host_read_data_valid_frequent_measure_0_ctrl;
   input            H00_SEM51Host_requests_S00_ChipID_idout;
   input            H00_SEM51Host_requests_S01_Reset_reset;
   input            H00_SEM51Host_requests_S02_OptKey_optkey;
@@ -197,6 +206,7 @@ module H00_SEM51Host_m0_arbitrator (
   input            H00_SEM51Host_requests_S11_T6963_LCD_lcd;
   input            H00_SEM51Host_requests_S20_ATA8_Interface_ata;
   input            H00_SEM51Host_requests_brushlessmotor_0_ctrl;
+  input            H00_SEM51Host_requests_frequent_measure_0_ctrl;
   input   [  7: 0] S00_ChipID_idout_readdata_from_sa;
   input            S00_ChipID_idout_waitrequest_n_from_sa;
   input   [  7: 0] S01_Reset_reset_readdata_from_sa;
@@ -239,6 +249,8 @@ module H00_SEM51Host_m0_arbitrator (
   input            d1_S11_T6963_LCD_lcd_end_xfer;
   input            d1_S20_ATA8_Interface_ata_end_xfer;
   input            d1_brushlessmotor_0_ctrl_end_xfer;
+  input            d1_frequent_measure_0_ctrl_end_xfer;
+  input   [  7: 0] frequent_measure_0_ctrl_readdata_from_sa;
   input            reset_n;
 
   reg     [ 12: 0] H00_SEM51Host_m0_address_last_time;
@@ -255,18 +267,22 @@ module H00_SEM51Host_m0_arbitrator (
   reg              active_and_waiting_last_time;
   wire             r_0;
   wire             r_1;
+  wire             r_2;
   //r_0 master_run cascaded wait assignment, which is an e_assign
   assign r_0 = 1 & ((~H00_SEM51Host_qualified_request_S00_ChipID_idout | H00_SEM51Host_m0_chipselect_n | (1 & S00_ChipID_idout_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & ((~H00_SEM51Host_qualified_request_S00_ChipID_idout | H00_SEM51Host_m0_chipselect_n | (1 & S00_ChipID_idout_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & 1 & ((~H00_SEM51Host_qualified_request_S01_Reset_reset | H00_SEM51Host_m0_chipselect_n | (1 & S01_Reset_reset_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & ((~H00_SEM51Host_qualified_request_S01_Reset_reset | H00_SEM51Host_m0_chipselect_n | (1 & S01_Reset_reset_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & 1 & ((~H00_SEM51Host_qualified_request_S02_OptKey_optkey | H00_SEM51Host_m0_chipselect_n | (1 & S02_OptKey_optkey_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & ((~H00_SEM51Host_qualified_request_S02_OptKey_optkey | H00_SEM51Host_m0_chipselect_n | (1 & S02_OptKey_optkey_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & 1 & ((~H00_SEM51Host_qualified_request_S03_IntrqKey_intkey | H00_SEM51Host_m0_chipselect_n | (1 & S03_IntrqKey_intkey_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & ((~H00_SEM51Host_qualified_request_S03_IntrqKey_intkey | H00_SEM51Host_m0_chipselect_n | (1 & S03_IntrqKey_intkey_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & 1 & ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_addr | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_addr_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_addr | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_addr_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & 1 & ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_ctrl | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_ctrl_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_ctrl | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_ctrl_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & 1 & ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_key0 | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_key0_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n)));
 
   //cascaded wait assignment, which is an e_assign
-  assign H00_SEM51Host_m0_run = r_0 & r_1;
+  assign H00_SEM51Host_m0_run = r_0 & r_1 & r_2;
 
   //r_1 master_run cascaded wait assignment, which is an e_assign
-  assign r_1 = ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_key0 | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_key0_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & 1 & ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_key1 | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_key1_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_key1 | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_key1_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & 1 & ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_key2 | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_key2_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_key2 | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_key2_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & 1 & ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_key3 | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_key3_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_key3 | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_key3_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & 1 & ((~H00_SEM51Host_qualified_request_S11_T6963_LCD_lcd | H00_SEM51Host_m0_chipselect_n | (1 & S11_T6963_LCD_lcd_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & ((~H00_SEM51Host_qualified_request_S11_T6963_LCD_lcd | H00_SEM51Host_m0_chipselect_n | (1 & S11_T6963_LCD_lcd_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & 1 & ((~H00_SEM51Host_qualified_request_S20_ATA8_Interface_ata | H00_SEM51Host_m0_chipselect_n | (1 & S20_ATA8_Interface_ata_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & ((~H00_SEM51Host_qualified_request_S20_ATA8_Interface_ata | H00_SEM51Host_m0_chipselect_n | (1 & S20_ATA8_Interface_ata_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & 1 & ((~H00_SEM51Host_qualified_request_brushlessmotor_0_ctrl | ~(~H00_SEM51Host_m0_read_n & ~H00_SEM51Host_m0_chipselect_n) | (1 & ~d1_brushlessmotor_0_ctrl_end_xfer & (~H00_SEM51Host_m0_read_n & ~H00_SEM51Host_m0_chipselect_n)))) & ((~H00_SEM51Host_qualified_request_brushlessmotor_0_ctrl | ~(~H00_SEM51Host_m0_write_n & ~H00_SEM51Host_m0_chipselect_n) | (1 & (~H00_SEM51Host_m0_write_n & ~H00_SEM51Host_m0_chipselect_n))));
+  assign r_1 = ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_key0 | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_key0_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & 1 & ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_key1 | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_key1_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_key1 | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_key1_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & 1 & ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_key2 | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_key2_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_key2 | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_key2_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & 1 & ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_key3 | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_key3_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & ((~H00_SEM51Host_qualified_request_S10_PNLCtrl_key3 | H00_SEM51Host_m0_chipselect_n | (1 & S10_PNLCtrl_key3_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & 1 & ((~H00_SEM51Host_qualified_request_S11_T6963_LCD_lcd | H00_SEM51Host_m0_chipselect_n | (1 & S11_T6963_LCD_lcd_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & ((~H00_SEM51Host_qualified_request_S11_T6963_LCD_lcd | H00_SEM51Host_m0_chipselect_n | (1 & S11_T6963_LCD_lcd_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & 1 & ((~H00_SEM51Host_qualified_request_S20_ATA8_Interface_ata | H00_SEM51Host_m0_chipselect_n | (1 & S20_ATA8_Interface_ata_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & ((~H00_SEM51Host_qualified_request_S20_ATA8_Interface_ata | H00_SEM51Host_m0_chipselect_n | (1 & S20_ATA8_Interface_ata_waitrequest_n_from_sa & ~H00_SEM51Host_m0_chipselect_n))) & 1 & ((~H00_SEM51Host_qualified_request_brushlessmotor_0_ctrl | ~(~H00_SEM51Host_m0_read_n & ~H00_SEM51Host_m0_chipselect_n) | (1 & ~d1_brushlessmotor_0_ctrl_end_xfer & (~H00_SEM51Host_m0_read_n & ~H00_SEM51Host_m0_chipselect_n)))) & ((~H00_SEM51Host_qualified_request_brushlessmotor_0_ctrl | ~(~H00_SEM51Host_m0_write_n & ~H00_SEM51Host_m0_chipselect_n) | (1 & (~H00_SEM51Host_m0_write_n & ~H00_SEM51Host_m0_chipselect_n)))) & 1;
+
+  //r_2 master_run cascaded wait assignment, which is an e_assign
+  assign r_2 = ((~H00_SEM51Host_qualified_request_frequent_measure_0_ctrl | ~(~H00_SEM51Host_m0_read_n & ~H00_SEM51Host_m0_chipselect_n) | (1 & ~d1_frequent_measure_0_ctrl_end_xfer & (~H00_SEM51Host_m0_read_n & ~H00_SEM51Host_m0_chipselect_n)))) & ((~H00_SEM51Host_qualified_request_frequent_measure_0_ctrl | ~(~H00_SEM51Host_m0_write_n & ~H00_SEM51Host_m0_chipselect_n) | (1 & (~H00_SEM51Host_m0_write_n & ~H00_SEM51Host_m0_chipselect_n))));
 
   //optimize select-logic by passing only those address bits which matter.
-  assign H00_SEM51Host_m0_address_to_slave = {6'b0,
-    H00_SEM51Host_m0_address[6 : 0]};
+  assign H00_SEM51Host_m0_address_to_slave = {5'b0,
+    H00_SEM51Host_m0_address[7 : 0]};
 
   //H00_SEM51Host/m0 readdata mux, which is an e_mux
   assign H00_SEM51Host_m0_readdata = ({8 {~H00_SEM51Host_requests_S00_ChipID_idout}} | S00_ChipID_idout_readdata_from_sa) &
@@ -281,7 +297,8 @@ module H00_SEM51Host_m0_arbitrator (
     ({8 {~H00_SEM51Host_requests_S10_PNLCtrl_key3}} | S10_PNLCtrl_key3_readdata_from_sa) &
     ({8 {~H00_SEM51Host_requests_S11_T6963_LCD_lcd}} | S11_T6963_LCD_lcd_readdata_from_sa) &
     ({8 {~H00_SEM51Host_requests_S20_ATA8_Interface_ata}} | S20_ATA8_Interface_ata_readdata_from_sa) &
-    ({8 {~H00_SEM51Host_requests_brushlessmotor_0_ctrl}} | brushlessmotor_0_ctrl_readdata_from_sa);
+    ({8 {~H00_SEM51Host_requests_brushlessmotor_0_ctrl}} | brushlessmotor_0_ctrl_readdata_from_sa) &
+    ({8 {~H00_SEM51Host_requests_frequent_measure_0_ctrl}} | frequent_measure_0_ctrl_readdata_from_sa);
 
   //actual waitrequest port, which is an e_assign
   assign H00_SEM51Host_m0_waitrequest_n = H00_SEM51Host_m0_run;
@@ -3947,6 +3964,282 @@ endmodule
 // altera message_level Level1 
 // altera message_off 10034 10035 10036 10037 10230 10240 10030 
 
+module frequent_measure_0_ctrl_arbitrator (
+                                            // inputs:
+                                             H00_SEM51Host_m0_address_to_slave,
+                                             H00_SEM51Host_m0_chipselect_n,
+                                             H00_SEM51Host_m0_read_n,
+                                             H00_SEM51Host_m0_write_n,
+                                             H00_SEM51Host_m0_writedata,
+                                             clk,
+                                             frequent_measure_0_ctrl_readdata,
+                                             reset_n,
+
+                                            // outputs:
+                                             H00_SEM51Host_granted_frequent_measure_0_ctrl,
+                                             H00_SEM51Host_qualified_request_frequent_measure_0_ctrl,
+                                             H00_SEM51Host_read_data_valid_frequent_measure_0_ctrl,
+                                             H00_SEM51Host_requests_frequent_measure_0_ctrl,
+                                             d1_frequent_measure_0_ctrl_end_xfer,
+                                             frequent_measure_0_ctrl_address,
+                                             frequent_measure_0_ctrl_read,
+                                             frequent_measure_0_ctrl_readdata_from_sa,
+                                             frequent_measure_0_ctrl_reset,
+                                             frequent_measure_0_ctrl_write,
+                                             frequent_measure_0_ctrl_writedata
+                                          )
+;
+
+  output           H00_SEM51Host_granted_frequent_measure_0_ctrl;
+  output           H00_SEM51Host_qualified_request_frequent_measure_0_ctrl;
+  output           H00_SEM51Host_read_data_valid_frequent_measure_0_ctrl;
+  output           H00_SEM51Host_requests_frequent_measure_0_ctrl;
+  output           d1_frequent_measure_0_ctrl_end_xfer;
+  output  [  3: 0] frequent_measure_0_ctrl_address;
+  output           frequent_measure_0_ctrl_read;
+  output  [  7: 0] frequent_measure_0_ctrl_readdata_from_sa;
+  output           frequent_measure_0_ctrl_reset;
+  output           frequent_measure_0_ctrl_write;
+  output  [  7: 0] frequent_measure_0_ctrl_writedata;
+  input   [ 12: 0] H00_SEM51Host_m0_address_to_slave;
+  input            H00_SEM51Host_m0_chipselect_n;
+  input            H00_SEM51Host_m0_read_n;
+  input            H00_SEM51Host_m0_write_n;
+  input   [  7: 0] H00_SEM51Host_m0_writedata;
+  input            clk;
+  input   [  7: 0] frequent_measure_0_ctrl_readdata;
+  input            reset_n;
+
+  wire             H00_SEM51Host_granted_frequent_measure_0_ctrl;
+  wire             H00_SEM51Host_m0_arbiterlock;
+  wire             H00_SEM51Host_m0_arbiterlock2;
+  wire             H00_SEM51Host_m0_continuerequest;
+  wire             H00_SEM51Host_qualified_request_frequent_measure_0_ctrl;
+  wire             H00_SEM51Host_read_data_valid_frequent_measure_0_ctrl;
+  wire             H00_SEM51Host_requests_frequent_measure_0_ctrl;
+  wire             H00_SEM51Host_saved_grant_frequent_measure_0_ctrl;
+  reg              d1_frequent_measure_0_ctrl_end_xfer;
+  reg              d1_reasons_to_wait;
+  reg              enable_nonzero_assertions;
+  wire             end_xfer_arb_share_counter_term_frequent_measure_0_ctrl;
+  wire    [  3: 0] frequent_measure_0_ctrl_address;
+  wire             frequent_measure_0_ctrl_allgrants;
+  wire             frequent_measure_0_ctrl_allow_new_arb_cycle;
+  wire             frequent_measure_0_ctrl_any_bursting_master_saved_grant;
+  wire             frequent_measure_0_ctrl_any_continuerequest;
+  wire             frequent_measure_0_ctrl_arb_counter_enable;
+  reg              frequent_measure_0_ctrl_arb_share_counter;
+  wire             frequent_measure_0_ctrl_arb_share_counter_next_value;
+  wire             frequent_measure_0_ctrl_arb_share_set_values;
+  wire             frequent_measure_0_ctrl_beginbursttransfer_internal;
+  wire             frequent_measure_0_ctrl_begins_xfer;
+  wire             frequent_measure_0_ctrl_end_xfer;
+  wire             frequent_measure_0_ctrl_firsttransfer;
+  wire             frequent_measure_0_ctrl_grant_vector;
+  wire             frequent_measure_0_ctrl_in_a_read_cycle;
+  wire             frequent_measure_0_ctrl_in_a_write_cycle;
+  wire             frequent_measure_0_ctrl_master_qreq_vector;
+  wire             frequent_measure_0_ctrl_non_bursting_master_requests;
+  wire             frequent_measure_0_ctrl_pretend_byte_enable;
+  wire             frequent_measure_0_ctrl_read;
+  wire    [  7: 0] frequent_measure_0_ctrl_readdata_from_sa;
+  reg              frequent_measure_0_ctrl_reg_firsttransfer;
+  wire             frequent_measure_0_ctrl_reset;
+  reg              frequent_measure_0_ctrl_slavearbiterlockenable;
+  wire             frequent_measure_0_ctrl_slavearbiterlockenable2;
+  wire             frequent_measure_0_ctrl_unreg_firsttransfer;
+  wire             frequent_measure_0_ctrl_waits_for_read;
+  wire             frequent_measure_0_ctrl_waits_for_write;
+  wire             frequent_measure_0_ctrl_write;
+  wire    [  7: 0] frequent_measure_0_ctrl_writedata;
+  wire             in_a_read_cycle;
+  wire             in_a_write_cycle;
+  wire             wait_for_frequent_measure_0_ctrl_counter;
+  always @(posedge clk or negedge reset_n)
+    begin
+      if (reset_n == 0)
+          d1_reasons_to_wait <= 0;
+      else 
+        d1_reasons_to_wait <= ~frequent_measure_0_ctrl_end_xfer;
+    end
+
+
+  assign frequent_measure_0_ctrl_begins_xfer = ~d1_reasons_to_wait & ((H00_SEM51Host_qualified_request_frequent_measure_0_ctrl));
+  //assign frequent_measure_0_ctrl_readdata_from_sa = frequent_measure_0_ctrl_readdata so that symbol knows where to group signals which may go to master only, which is an e_assign
+  assign frequent_measure_0_ctrl_readdata_from_sa = frequent_measure_0_ctrl_readdata;
+
+  assign H00_SEM51Host_requests_frequent_measure_0_ctrl = ({H00_SEM51Host_m0_address_to_slave[12 : 4] , 4'b0} == 13'h80) & ~H00_SEM51Host_m0_chipselect_n;
+  //frequent_measure_0_ctrl_arb_share_counter set values, which is an e_mux
+  assign frequent_measure_0_ctrl_arb_share_set_values = 1;
+
+  //frequent_measure_0_ctrl_non_bursting_master_requests mux, which is an e_mux
+  assign frequent_measure_0_ctrl_non_bursting_master_requests = H00_SEM51Host_requests_frequent_measure_0_ctrl;
+
+  //frequent_measure_0_ctrl_any_bursting_master_saved_grant mux, which is an e_mux
+  assign frequent_measure_0_ctrl_any_bursting_master_saved_grant = 0;
+
+  //frequent_measure_0_ctrl_arb_share_counter_next_value assignment, which is an e_assign
+  assign frequent_measure_0_ctrl_arb_share_counter_next_value = frequent_measure_0_ctrl_firsttransfer ? (frequent_measure_0_ctrl_arb_share_set_values - 1) : |frequent_measure_0_ctrl_arb_share_counter ? (frequent_measure_0_ctrl_arb_share_counter - 1) : 0;
+
+  //frequent_measure_0_ctrl_allgrants all slave grants, which is an e_mux
+  assign frequent_measure_0_ctrl_allgrants = |frequent_measure_0_ctrl_grant_vector;
+
+  //frequent_measure_0_ctrl_end_xfer assignment, which is an e_assign
+  assign frequent_measure_0_ctrl_end_xfer = ~(frequent_measure_0_ctrl_waits_for_read | frequent_measure_0_ctrl_waits_for_write);
+
+  //end_xfer_arb_share_counter_term_frequent_measure_0_ctrl arb share counter enable term, which is an e_assign
+  assign end_xfer_arb_share_counter_term_frequent_measure_0_ctrl = frequent_measure_0_ctrl_end_xfer & (~frequent_measure_0_ctrl_any_bursting_master_saved_grant | in_a_read_cycle | in_a_write_cycle);
+
+  //frequent_measure_0_ctrl_arb_share_counter arbitration counter enable, which is an e_assign
+  assign frequent_measure_0_ctrl_arb_counter_enable = (end_xfer_arb_share_counter_term_frequent_measure_0_ctrl & frequent_measure_0_ctrl_allgrants) | (end_xfer_arb_share_counter_term_frequent_measure_0_ctrl & ~frequent_measure_0_ctrl_non_bursting_master_requests);
+
+  //frequent_measure_0_ctrl_arb_share_counter counter, which is an e_register
+  always @(posedge clk or negedge reset_n)
+    begin
+      if (reset_n == 0)
+          frequent_measure_0_ctrl_arb_share_counter <= 0;
+      else if (frequent_measure_0_ctrl_arb_counter_enable)
+          frequent_measure_0_ctrl_arb_share_counter <= frequent_measure_0_ctrl_arb_share_counter_next_value;
+    end
+
+
+  //frequent_measure_0_ctrl_slavearbiterlockenable slave enables arbiterlock, which is an e_register
+  always @(posedge clk or negedge reset_n)
+    begin
+      if (reset_n == 0)
+          frequent_measure_0_ctrl_slavearbiterlockenable <= 0;
+      else if ((|frequent_measure_0_ctrl_master_qreq_vector & end_xfer_arb_share_counter_term_frequent_measure_0_ctrl) | (end_xfer_arb_share_counter_term_frequent_measure_0_ctrl & ~frequent_measure_0_ctrl_non_bursting_master_requests))
+          frequent_measure_0_ctrl_slavearbiterlockenable <= |frequent_measure_0_ctrl_arb_share_counter_next_value;
+    end
+
+
+  //H00_SEM51Host/m0 frequent_measure_0/ctrl arbiterlock, which is an e_assign
+  assign H00_SEM51Host_m0_arbiterlock = frequent_measure_0_ctrl_slavearbiterlockenable & H00_SEM51Host_m0_continuerequest;
+
+  //frequent_measure_0_ctrl_slavearbiterlockenable2 slave enables arbiterlock2, which is an e_assign
+  assign frequent_measure_0_ctrl_slavearbiterlockenable2 = |frequent_measure_0_ctrl_arb_share_counter_next_value;
+
+  //H00_SEM51Host/m0 frequent_measure_0/ctrl arbiterlock2, which is an e_assign
+  assign H00_SEM51Host_m0_arbiterlock2 = frequent_measure_0_ctrl_slavearbiterlockenable2 & H00_SEM51Host_m0_continuerequest;
+
+  //frequent_measure_0_ctrl_any_continuerequest at least one master continues requesting, which is an e_assign
+  assign frequent_measure_0_ctrl_any_continuerequest = 1;
+
+  //H00_SEM51Host_m0_continuerequest continued request, which is an e_assign
+  assign H00_SEM51Host_m0_continuerequest = 1;
+
+  assign H00_SEM51Host_qualified_request_frequent_measure_0_ctrl = H00_SEM51Host_requests_frequent_measure_0_ctrl;
+  //frequent_measure_0_ctrl_writedata mux, which is an e_mux
+  assign frequent_measure_0_ctrl_writedata = H00_SEM51Host_m0_writedata;
+
+  //master is always granted when requested
+  assign H00_SEM51Host_granted_frequent_measure_0_ctrl = H00_SEM51Host_qualified_request_frequent_measure_0_ctrl;
+
+  //H00_SEM51Host/m0 saved-grant frequent_measure_0/ctrl, which is an e_assign
+  assign H00_SEM51Host_saved_grant_frequent_measure_0_ctrl = H00_SEM51Host_requests_frequent_measure_0_ctrl;
+
+  //allow new arb cycle for frequent_measure_0/ctrl, which is an e_assign
+  assign frequent_measure_0_ctrl_allow_new_arb_cycle = 1;
+
+  //placeholder chosen master
+  assign frequent_measure_0_ctrl_grant_vector = 1;
+
+  //placeholder vector of master qualified-requests
+  assign frequent_measure_0_ctrl_master_qreq_vector = 1;
+
+  //~frequent_measure_0_ctrl_reset assignment, which is an e_assign
+  assign frequent_measure_0_ctrl_reset = ~reset_n;
+
+  //frequent_measure_0_ctrl_firsttransfer first transaction, which is an e_assign
+  assign frequent_measure_0_ctrl_firsttransfer = frequent_measure_0_ctrl_begins_xfer ? frequent_measure_0_ctrl_unreg_firsttransfer : frequent_measure_0_ctrl_reg_firsttransfer;
+
+  //frequent_measure_0_ctrl_unreg_firsttransfer first transaction, which is an e_assign
+  assign frequent_measure_0_ctrl_unreg_firsttransfer = ~(frequent_measure_0_ctrl_slavearbiterlockenable & frequent_measure_0_ctrl_any_continuerequest);
+
+  //frequent_measure_0_ctrl_reg_firsttransfer first transaction, which is an e_register
+  always @(posedge clk or negedge reset_n)
+    begin
+      if (reset_n == 0)
+          frequent_measure_0_ctrl_reg_firsttransfer <= 1'b1;
+      else if (frequent_measure_0_ctrl_begins_xfer)
+          frequent_measure_0_ctrl_reg_firsttransfer <= frequent_measure_0_ctrl_unreg_firsttransfer;
+    end
+
+
+  //frequent_measure_0_ctrl_beginbursttransfer_internal begin burst transfer, which is an e_assign
+  assign frequent_measure_0_ctrl_beginbursttransfer_internal = frequent_measure_0_ctrl_begins_xfer;
+
+  //frequent_measure_0_ctrl_read assignment, which is an e_mux
+  assign frequent_measure_0_ctrl_read = H00_SEM51Host_granted_frequent_measure_0_ctrl & (~H00_SEM51Host_m0_read_n & ~H00_SEM51Host_m0_chipselect_n);
+
+  //frequent_measure_0_ctrl_write assignment, which is an e_mux
+  assign frequent_measure_0_ctrl_write = ((H00_SEM51Host_granted_frequent_measure_0_ctrl & (~H00_SEM51Host_m0_write_n & ~H00_SEM51Host_m0_chipselect_n))) & frequent_measure_0_ctrl_pretend_byte_enable;
+
+  //frequent_measure_0_ctrl_address mux, which is an e_mux
+  assign frequent_measure_0_ctrl_address = H00_SEM51Host_m0_address_to_slave;
+
+  //d1_frequent_measure_0_ctrl_end_xfer register, which is an e_register
+  always @(posedge clk or negedge reset_n)
+    begin
+      if (reset_n == 0)
+          d1_frequent_measure_0_ctrl_end_xfer <= 1;
+      else 
+        d1_frequent_measure_0_ctrl_end_xfer <= frequent_measure_0_ctrl_end_xfer;
+    end
+
+
+  //frequent_measure_0_ctrl_waits_for_read in a cycle, which is an e_mux
+  assign frequent_measure_0_ctrl_waits_for_read = frequent_measure_0_ctrl_in_a_read_cycle & frequent_measure_0_ctrl_begins_xfer;
+
+  //frequent_measure_0_ctrl_in_a_read_cycle assignment, which is an e_assign
+  assign frequent_measure_0_ctrl_in_a_read_cycle = H00_SEM51Host_granted_frequent_measure_0_ctrl & (~H00_SEM51Host_m0_read_n & ~H00_SEM51Host_m0_chipselect_n);
+
+  //in_a_read_cycle assignment, which is an e_mux
+  assign in_a_read_cycle = frequent_measure_0_ctrl_in_a_read_cycle;
+
+  //frequent_measure_0_ctrl_waits_for_write in a cycle, which is an e_mux
+  assign frequent_measure_0_ctrl_waits_for_write = frequent_measure_0_ctrl_in_a_write_cycle & 0;
+
+  //frequent_measure_0_ctrl_in_a_write_cycle assignment, which is an e_assign
+  assign frequent_measure_0_ctrl_in_a_write_cycle = H00_SEM51Host_granted_frequent_measure_0_ctrl & (~H00_SEM51Host_m0_write_n & ~H00_SEM51Host_m0_chipselect_n);
+
+  //in_a_write_cycle assignment, which is an e_mux
+  assign in_a_write_cycle = frequent_measure_0_ctrl_in_a_write_cycle;
+
+  assign wait_for_frequent_measure_0_ctrl_counter = 0;
+  //frequent_measure_0_ctrl_pretend_byte_enable byte enable port mux, which is an e_mux
+  assign frequent_measure_0_ctrl_pretend_byte_enable = (H00_SEM51Host_granted_frequent_measure_0_ctrl)? {1 {1'b1}} :
+    -1;
+
+
+//synthesis translate_off
+//////////////// SIMULATION-ONLY CONTENTS
+  //frequent_measure_0/ctrl enable non-zero assertions, which is an e_register
+  always @(posedge clk or negedge reset_n)
+    begin
+      if (reset_n == 0)
+          enable_nonzero_assertions <= 0;
+      else 
+        enable_nonzero_assertions <= 1'b1;
+    end
+
+
+
+//////////////// END SIMULATION-ONLY CONTENTS
+
+//synthesis translate_on
+
+endmodule
+
+
+// synthesis translate_off
+`timescale 1ns / 1ps
+// synthesis translate_on
+
+// turn off superfluous verilog processor warnings 
+// altera message_level Level1 
+// altera message_off 10034 10035 10036 10037 10230 10240 10030 
+
 module EXB51_MAIN_reset_MCU_CLK_domain_synch_module (
                                                       // inputs:
                                                        clk,
@@ -4056,7 +4349,10 @@ module EXB51_MAIN (
                      Lbd_from_the_brushlessmotor_0,
                      Lbu_from_the_brushlessmotor_0,
                      Lcd_from_the_brushlessmotor_0,
-                     Lcu_from_the_brushlessmotor_0
+                     Lcu_from_the_brushlessmotor_0,
+
+                    // the_frequent_measure_0
+                     frequent_to_the_frequent_measure_0
                   )
 ;
 
@@ -4103,6 +4399,7 @@ module EXB51_MAIN (
   input            SEM_CSN_to_the_H00_SEM51Host;
   input            SEM_OEN_to_the_H00_SEM51Host;
   input            SEM_WEN_to_the_H00_SEM51Host;
+  input            frequent_to_the_frequent_measure_0;
   input            reset_n;
 
   wire    [  4: 0] ATA_ADDR_from_the_S20_ATA8_Interface;
@@ -4124,6 +4421,7 @@ module EXB51_MAIN (
   wire             H00_SEM51Host_granted_S11_T6963_LCD_lcd;
   wire             H00_SEM51Host_granted_S20_ATA8_Interface_ata;
   wire             H00_SEM51Host_granted_brushlessmotor_0_ctrl;
+  wire             H00_SEM51Host_granted_frequent_measure_0_ctrl;
   wire    [ 12: 0] H00_SEM51Host_m0_address;
   wire    [ 12: 0] H00_SEM51Host_m0_address_to_slave;
   wire             H00_SEM51Host_m0_chipselect_n;
@@ -4147,6 +4445,7 @@ module EXB51_MAIN (
   wire             H00_SEM51Host_qualified_request_S11_T6963_LCD_lcd;
   wire             H00_SEM51Host_qualified_request_S20_ATA8_Interface_ata;
   wire             H00_SEM51Host_qualified_request_brushlessmotor_0_ctrl;
+  wire             H00_SEM51Host_qualified_request_frequent_measure_0_ctrl;
   wire             H00_SEM51Host_read_data_valid_S00_ChipID_idout;
   wire             H00_SEM51Host_read_data_valid_S01_Reset_reset;
   wire             H00_SEM51Host_read_data_valid_S02_OptKey_optkey;
@@ -4160,6 +4459,7 @@ module EXB51_MAIN (
   wire             H00_SEM51Host_read_data_valid_S11_T6963_LCD_lcd;
   wire             H00_SEM51Host_read_data_valid_S20_ATA8_Interface_ata;
   wire             H00_SEM51Host_read_data_valid_brushlessmotor_0_ctrl;
+  wire             H00_SEM51Host_read_data_valid_frequent_measure_0_ctrl;
   wire             H00_SEM51Host_requests_S00_ChipID_idout;
   wire             H00_SEM51Host_requests_S01_Reset_reset;
   wire             H00_SEM51Host_requests_S02_OptKey_optkey;
@@ -4173,6 +4473,7 @@ module EXB51_MAIN (
   wire             H00_SEM51Host_requests_S11_T6963_LCD_lcd;
   wire             H00_SEM51Host_requests_S20_ATA8_Interface_ata;
   wire             H00_SEM51Host_requests_brushlessmotor_0_ctrl;
+  wire             H00_SEM51Host_requests_frequent_measure_0_ctrl;
   wire             LCD_BUF_DIR_from_the_S11_T6963_LCD;
   wire    [  3: 0] LCD_CTRL_from_the_S11_T6963_LCD;
   wire    [ 15: 0] LCD_DATA_to_and_from_the_S11_T6963_LCD;
@@ -4300,114 +4601,128 @@ module EXB51_MAIN (
   wire             d1_S11_T6963_LCD_lcd_end_xfer;
   wire             d1_S20_ATA8_Interface_ata_end_xfer;
   wire             d1_brushlessmotor_0_ctrl_end_xfer;
+  wire             d1_frequent_measure_0_ctrl_end_xfer;
+  wire    [  3: 0] frequent_measure_0_ctrl_address;
+  wire             frequent_measure_0_ctrl_read;
+  wire    [  7: 0] frequent_measure_0_ctrl_readdata;
+  wire    [  7: 0] frequent_measure_0_ctrl_readdata_from_sa;
+  wire             frequent_measure_0_ctrl_reset;
+  wire             frequent_measure_0_ctrl_write;
+  wire    [  7: 0] frequent_measure_0_ctrl_writedata;
   wire             reset_n_sources;
   H00_SEM51Host_m0_arbitrator the_H00_SEM51Host_m0
     (
-      .H00_SEM51Host_granted_S00_ChipID_idout                 (H00_SEM51Host_granted_S00_ChipID_idout),
-      .H00_SEM51Host_granted_S01_Reset_reset                  (H00_SEM51Host_granted_S01_Reset_reset),
-      .H00_SEM51Host_granted_S02_OptKey_optkey                (H00_SEM51Host_granted_S02_OptKey_optkey),
-      .H00_SEM51Host_granted_S03_IntrqKey_intkey              (H00_SEM51Host_granted_S03_IntrqKey_intkey),
-      .H00_SEM51Host_granted_S10_PNLCtrl_addr                 (H00_SEM51Host_granted_S10_PNLCtrl_addr),
-      .H00_SEM51Host_granted_S10_PNLCtrl_ctrl                 (H00_SEM51Host_granted_S10_PNLCtrl_ctrl),
-      .H00_SEM51Host_granted_S10_PNLCtrl_key0                 (H00_SEM51Host_granted_S10_PNLCtrl_key0),
-      .H00_SEM51Host_granted_S10_PNLCtrl_key1                 (H00_SEM51Host_granted_S10_PNLCtrl_key1),
-      .H00_SEM51Host_granted_S10_PNLCtrl_key2                 (H00_SEM51Host_granted_S10_PNLCtrl_key2),
-      .H00_SEM51Host_granted_S10_PNLCtrl_key3                 (H00_SEM51Host_granted_S10_PNLCtrl_key3),
-      .H00_SEM51Host_granted_S11_T6963_LCD_lcd                (H00_SEM51Host_granted_S11_T6963_LCD_lcd),
-      .H00_SEM51Host_granted_S20_ATA8_Interface_ata           (H00_SEM51Host_granted_S20_ATA8_Interface_ata),
-      .H00_SEM51Host_granted_brushlessmotor_0_ctrl            (H00_SEM51Host_granted_brushlessmotor_0_ctrl),
-      .H00_SEM51Host_m0_address                               (H00_SEM51Host_m0_address),
-      .H00_SEM51Host_m0_address_to_slave                      (H00_SEM51Host_m0_address_to_slave),
-      .H00_SEM51Host_m0_chipselect_n                          (H00_SEM51Host_m0_chipselect_n),
-      .H00_SEM51Host_m0_irq                                   (H00_SEM51Host_m0_irq),
-      .H00_SEM51Host_m0_read_n                                (H00_SEM51Host_m0_read_n),
-      .H00_SEM51Host_m0_readdata                              (H00_SEM51Host_m0_readdata),
-      .H00_SEM51Host_m0_reset_n                               (H00_SEM51Host_m0_reset_n),
-      .H00_SEM51Host_m0_waitrequest_n                         (H00_SEM51Host_m0_waitrequest_n),
-      .H00_SEM51Host_m0_write_n                               (H00_SEM51Host_m0_write_n),
-      .H00_SEM51Host_m0_writedata                             (H00_SEM51Host_m0_writedata),
-      .H00_SEM51Host_qualified_request_S00_ChipID_idout       (H00_SEM51Host_qualified_request_S00_ChipID_idout),
-      .H00_SEM51Host_qualified_request_S01_Reset_reset        (H00_SEM51Host_qualified_request_S01_Reset_reset),
-      .H00_SEM51Host_qualified_request_S02_OptKey_optkey      (H00_SEM51Host_qualified_request_S02_OptKey_optkey),
-      .H00_SEM51Host_qualified_request_S03_IntrqKey_intkey    (H00_SEM51Host_qualified_request_S03_IntrqKey_intkey),
-      .H00_SEM51Host_qualified_request_S10_PNLCtrl_addr       (H00_SEM51Host_qualified_request_S10_PNLCtrl_addr),
-      .H00_SEM51Host_qualified_request_S10_PNLCtrl_ctrl       (H00_SEM51Host_qualified_request_S10_PNLCtrl_ctrl),
-      .H00_SEM51Host_qualified_request_S10_PNLCtrl_key0       (H00_SEM51Host_qualified_request_S10_PNLCtrl_key0),
-      .H00_SEM51Host_qualified_request_S10_PNLCtrl_key1       (H00_SEM51Host_qualified_request_S10_PNLCtrl_key1),
-      .H00_SEM51Host_qualified_request_S10_PNLCtrl_key2       (H00_SEM51Host_qualified_request_S10_PNLCtrl_key2),
-      .H00_SEM51Host_qualified_request_S10_PNLCtrl_key3       (H00_SEM51Host_qualified_request_S10_PNLCtrl_key3),
-      .H00_SEM51Host_qualified_request_S11_T6963_LCD_lcd      (H00_SEM51Host_qualified_request_S11_T6963_LCD_lcd),
-      .H00_SEM51Host_qualified_request_S20_ATA8_Interface_ata (H00_SEM51Host_qualified_request_S20_ATA8_Interface_ata),
-      .H00_SEM51Host_qualified_request_brushlessmotor_0_ctrl  (H00_SEM51Host_qualified_request_brushlessmotor_0_ctrl),
-      .H00_SEM51Host_read_data_valid_S00_ChipID_idout         (H00_SEM51Host_read_data_valid_S00_ChipID_idout),
-      .H00_SEM51Host_read_data_valid_S01_Reset_reset          (H00_SEM51Host_read_data_valid_S01_Reset_reset),
-      .H00_SEM51Host_read_data_valid_S02_OptKey_optkey        (H00_SEM51Host_read_data_valid_S02_OptKey_optkey),
-      .H00_SEM51Host_read_data_valid_S03_IntrqKey_intkey      (H00_SEM51Host_read_data_valid_S03_IntrqKey_intkey),
-      .H00_SEM51Host_read_data_valid_S10_PNLCtrl_addr         (H00_SEM51Host_read_data_valid_S10_PNLCtrl_addr),
-      .H00_SEM51Host_read_data_valid_S10_PNLCtrl_ctrl         (H00_SEM51Host_read_data_valid_S10_PNLCtrl_ctrl),
-      .H00_SEM51Host_read_data_valid_S10_PNLCtrl_key0         (H00_SEM51Host_read_data_valid_S10_PNLCtrl_key0),
-      .H00_SEM51Host_read_data_valid_S10_PNLCtrl_key1         (H00_SEM51Host_read_data_valid_S10_PNLCtrl_key1),
-      .H00_SEM51Host_read_data_valid_S10_PNLCtrl_key2         (H00_SEM51Host_read_data_valid_S10_PNLCtrl_key2),
-      .H00_SEM51Host_read_data_valid_S10_PNLCtrl_key3         (H00_SEM51Host_read_data_valid_S10_PNLCtrl_key3),
-      .H00_SEM51Host_read_data_valid_S11_T6963_LCD_lcd        (H00_SEM51Host_read_data_valid_S11_T6963_LCD_lcd),
-      .H00_SEM51Host_read_data_valid_S20_ATA8_Interface_ata   (H00_SEM51Host_read_data_valid_S20_ATA8_Interface_ata),
-      .H00_SEM51Host_read_data_valid_brushlessmotor_0_ctrl    (H00_SEM51Host_read_data_valid_brushlessmotor_0_ctrl),
-      .H00_SEM51Host_requests_S00_ChipID_idout                (H00_SEM51Host_requests_S00_ChipID_idout),
-      .H00_SEM51Host_requests_S01_Reset_reset                 (H00_SEM51Host_requests_S01_Reset_reset),
-      .H00_SEM51Host_requests_S02_OptKey_optkey               (H00_SEM51Host_requests_S02_OptKey_optkey),
-      .H00_SEM51Host_requests_S03_IntrqKey_intkey             (H00_SEM51Host_requests_S03_IntrqKey_intkey),
-      .H00_SEM51Host_requests_S10_PNLCtrl_addr                (H00_SEM51Host_requests_S10_PNLCtrl_addr),
-      .H00_SEM51Host_requests_S10_PNLCtrl_ctrl                (H00_SEM51Host_requests_S10_PNLCtrl_ctrl),
-      .H00_SEM51Host_requests_S10_PNLCtrl_key0                (H00_SEM51Host_requests_S10_PNLCtrl_key0),
-      .H00_SEM51Host_requests_S10_PNLCtrl_key1                (H00_SEM51Host_requests_S10_PNLCtrl_key1),
-      .H00_SEM51Host_requests_S10_PNLCtrl_key2                (H00_SEM51Host_requests_S10_PNLCtrl_key2),
-      .H00_SEM51Host_requests_S10_PNLCtrl_key3                (H00_SEM51Host_requests_S10_PNLCtrl_key3),
-      .H00_SEM51Host_requests_S11_T6963_LCD_lcd               (H00_SEM51Host_requests_S11_T6963_LCD_lcd),
-      .H00_SEM51Host_requests_S20_ATA8_Interface_ata          (H00_SEM51Host_requests_S20_ATA8_Interface_ata),
-      .H00_SEM51Host_requests_brushlessmotor_0_ctrl           (H00_SEM51Host_requests_brushlessmotor_0_ctrl),
-      .S00_ChipID_idout_readdata_from_sa                      (S00_ChipID_idout_readdata_from_sa),
-      .S00_ChipID_idout_waitrequest_n_from_sa                 (S00_ChipID_idout_waitrequest_n_from_sa),
-      .S01_Reset_reset_readdata_from_sa                       (S01_Reset_reset_readdata_from_sa),
-      .S01_Reset_reset_waitrequest_n_from_sa                  (S01_Reset_reset_waitrequest_n_from_sa),
-      .S02_OptKey_optkey_readdata_from_sa                     (S02_OptKey_optkey_readdata_from_sa),
-      .S02_OptKey_optkey_waitrequest_n_from_sa                (S02_OptKey_optkey_waitrequest_n_from_sa),
-      .S03_IntrqKey_intkey_irq_from_sa                        (S03_IntrqKey_intkey_irq_from_sa),
-      .S03_IntrqKey_intkey_readdata_from_sa                   (S03_IntrqKey_intkey_readdata_from_sa),
-      .S03_IntrqKey_intkey_waitrequest_n_from_sa              (S03_IntrqKey_intkey_waitrequest_n_from_sa),
-      .S10_PNLCtrl_addr_irq_from_sa                           (S10_PNLCtrl_addr_irq_from_sa),
-      .S10_PNLCtrl_addr_readdata_from_sa                      (S10_PNLCtrl_addr_readdata_from_sa),
-      .S10_PNLCtrl_addr_waitrequest_n_from_sa                 (S10_PNLCtrl_addr_waitrequest_n_from_sa),
-      .S10_PNLCtrl_ctrl_readdata_from_sa                      (S10_PNLCtrl_ctrl_readdata_from_sa),
-      .S10_PNLCtrl_ctrl_waitrequest_n_from_sa                 (S10_PNLCtrl_ctrl_waitrequest_n_from_sa),
-      .S10_PNLCtrl_key0_readdata_from_sa                      (S10_PNLCtrl_key0_readdata_from_sa),
-      .S10_PNLCtrl_key0_waitrequest_n_from_sa                 (S10_PNLCtrl_key0_waitrequest_n_from_sa),
-      .S10_PNLCtrl_key1_readdata_from_sa                      (S10_PNLCtrl_key1_readdata_from_sa),
-      .S10_PNLCtrl_key1_waitrequest_n_from_sa                 (S10_PNLCtrl_key1_waitrequest_n_from_sa),
-      .S10_PNLCtrl_key2_readdata_from_sa                      (S10_PNLCtrl_key2_readdata_from_sa),
-      .S10_PNLCtrl_key2_waitrequest_n_from_sa                 (S10_PNLCtrl_key2_waitrequest_n_from_sa),
-      .S10_PNLCtrl_key3_readdata_from_sa                      (S10_PNLCtrl_key3_readdata_from_sa),
-      .S10_PNLCtrl_key3_waitrequest_n_from_sa                 (S10_PNLCtrl_key3_waitrequest_n_from_sa),
-      .S11_T6963_LCD_lcd_readdata_from_sa                     (S11_T6963_LCD_lcd_readdata_from_sa),
-      .S11_T6963_LCD_lcd_waitrequest_n_from_sa                (S11_T6963_LCD_lcd_waitrequest_n_from_sa),
-      .S20_ATA8_Interface_ata_irq_from_sa                     (S20_ATA8_Interface_ata_irq_from_sa),
-      .S20_ATA8_Interface_ata_readdata_from_sa                (S20_ATA8_Interface_ata_readdata_from_sa),
-      .S20_ATA8_Interface_ata_waitrequest_n_from_sa           (S20_ATA8_Interface_ata_waitrequest_n_from_sa),
-      .brushlessmotor_0_ctrl_readdata_from_sa                 (brushlessmotor_0_ctrl_readdata_from_sa),
-      .clk                                                    (MCU_CLK),
-      .d1_S00_ChipID_idout_end_xfer                           (d1_S00_ChipID_idout_end_xfer),
-      .d1_S01_Reset_reset_end_xfer                            (d1_S01_Reset_reset_end_xfer),
-      .d1_S02_OptKey_optkey_end_xfer                          (d1_S02_OptKey_optkey_end_xfer),
-      .d1_S03_IntrqKey_intkey_end_xfer                        (d1_S03_IntrqKey_intkey_end_xfer),
-      .d1_S10_PNLCtrl_addr_end_xfer                           (d1_S10_PNLCtrl_addr_end_xfer),
-      .d1_S10_PNLCtrl_ctrl_end_xfer                           (d1_S10_PNLCtrl_ctrl_end_xfer),
-      .d1_S10_PNLCtrl_key0_end_xfer                           (d1_S10_PNLCtrl_key0_end_xfer),
-      .d1_S10_PNLCtrl_key1_end_xfer                           (d1_S10_PNLCtrl_key1_end_xfer),
-      .d1_S10_PNLCtrl_key2_end_xfer                           (d1_S10_PNLCtrl_key2_end_xfer),
-      .d1_S10_PNLCtrl_key3_end_xfer                           (d1_S10_PNLCtrl_key3_end_xfer),
-      .d1_S11_T6963_LCD_lcd_end_xfer                          (d1_S11_T6963_LCD_lcd_end_xfer),
-      .d1_S20_ATA8_Interface_ata_end_xfer                     (d1_S20_ATA8_Interface_ata_end_xfer),
-      .d1_brushlessmotor_0_ctrl_end_xfer                      (d1_brushlessmotor_0_ctrl_end_xfer),
-      .reset_n                                                (MCU_CLK_reset_n)
+      .H00_SEM51Host_granted_S00_ChipID_idout                  (H00_SEM51Host_granted_S00_ChipID_idout),
+      .H00_SEM51Host_granted_S01_Reset_reset                   (H00_SEM51Host_granted_S01_Reset_reset),
+      .H00_SEM51Host_granted_S02_OptKey_optkey                 (H00_SEM51Host_granted_S02_OptKey_optkey),
+      .H00_SEM51Host_granted_S03_IntrqKey_intkey               (H00_SEM51Host_granted_S03_IntrqKey_intkey),
+      .H00_SEM51Host_granted_S10_PNLCtrl_addr                  (H00_SEM51Host_granted_S10_PNLCtrl_addr),
+      .H00_SEM51Host_granted_S10_PNLCtrl_ctrl                  (H00_SEM51Host_granted_S10_PNLCtrl_ctrl),
+      .H00_SEM51Host_granted_S10_PNLCtrl_key0                  (H00_SEM51Host_granted_S10_PNLCtrl_key0),
+      .H00_SEM51Host_granted_S10_PNLCtrl_key1                  (H00_SEM51Host_granted_S10_PNLCtrl_key1),
+      .H00_SEM51Host_granted_S10_PNLCtrl_key2                  (H00_SEM51Host_granted_S10_PNLCtrl_key2),
+      .H00_SEM51Host_granted_S10_PNLCtrl_key3                  (H00_SEM51Host_granted_S10_PNLCtrl_key3),
+      .H00_SEM51Host_granted_S11_T6963_LCD_lcd                 (H00_SEM51Host_granted_S11_T6963_LCD_lcd),
+      .H00_SEM51Host_granted_S20_ATA8_Interface_ata            (H00_SEM51Host_granted_S20_ATA8_Interface_ata),
+      .H00_SEM51Host_granted_brushlessmotor_0_ctrl             (H00_SEM51Host_granted_brushlessmotor_0_ctrl),
+      .H00_SEM51Host_granted_frequent_measure_0_ctrl           (H00_SEM51Host_granted_frequent_measure_0_ctrl),
+      .H00_SEM51Host_m0_address                                (H00_SEM51Host_m0_address),
+      .H00_SEM51Host_m0_address_to_slave                       (H00_SEM51Host_m0_address_to_slave),
+      .H00_SEM51Host_m0_chipselect_n                           (H00_SEM51Host_m0_chipselect_n),
+      .H00_SEM51Host_m0_irq                                    (H00_SEM51Host_m0_irq),
+      .H00_SEM51Host_m0_read_n                                 (H00_SEM51Host_m0_read_n),
+      .H00_SEM51Host_m0_readdata                               (H00_SEM51Host_m0_readdata),
+      .H00_SEM51Host_m0_reset_n                                (H00_SEM51Host_m0_reset_n),
+      .H00_SEM51Host_m0_waitrequest_n                          (H00_SEM51Host_m0_waitrequest_n),
+      .H00_SEM51Host_m0_write_n                                (H00_SEM51Host_m0_write_n),
+      .H00_SEM51Host_m0_writedata                              (H00_SEM51Host_m0_writedata),
+      .H00_SEM51Host_qualified_request_S00_ChipID_idout        (H00_SEM51Host_qualified_request_S00_ChipID_idout),
+      .H00_SEM51Host_qualified_request_S01_Reset_reset         (H00_SEM51Host_qualified_request_S01_Reset_reset),
+      .H00_SEM51Host_qualified_request_S02_OptKey_optkey       (H00_SEM51Host_qualified_request_S02_OptKey_optkey),
+      .H00_SEM51Host_qualified_request_S03_IntrqKey_intkey     (H00_SEM51Host_qualified_request_S03_IntrqKey_intkey),
+      .H00_SEM51Host_qualified_request_S10_PNLCtrl_addr        (H00_SEM51Host_qualified_request_S10_PNLCtrl_addr),
+      .H00_SEM51Host_qualified_request_S10_PNLCtrl_ctrl        (H00_SEM51Host_qualified_request_S10_PNLCtrl_ctrl),
+      .H00_SEM51Host_qualified_request_S10_PNLCtrl_key0        (H00_SEM51Host_qualified_request_S10_PNLCtrl_key0),
+      .H00_SEM51Host_qualified_request_S10_PNLCtrl_key1        (H00_SEM51Host_qualified_request_S10_PNLCtrl_key1),
+      .H00_SEM51Host_qualified_request_S10_PNLCtrl_key2        (H00_SEM51Host_qualified_request_S10_PNLCtrl_key2),
+      .H00_SEM51Host_qualified_request_S10_PNLCtrl_key3        (H00_SEM51Host_qualified_request_S10_PNLCtrl_key3),
+      .H00_SEM51Host_qualified_request_S11_T6963_LCD_lcd       (H00_SEM51Host_qualified_request_S11_T6963_LCD_lcd),
+      .H00_SEM51Host_qualified_request_S20_ATA8_Interface_ata  (H00_SEM51Host_qualified_request_S20_ATA8_Interface_ata),
+      .H00_SEM51Host_qualified_request_brushlessmotor_0_ctrl   (H00_SEM51Host_qualified_request_brushlessmotor_0_ctrl),
+      .H00_SEM51Host_qualified_request_frequent_measure_0_ctrl (H00_SEM51Host_qualified_request_frequent_measure_0_ctrl),
+      .H00_SEM51Host_read_data_valid_S00_ChipID_idout          (H00_SEM51Host_read_data_valid_S00_ChipID_idout),
+      .H00_SEM51Host_read_data_valid_S01_Reset_reset           (H00_SEM51Host_read_data_valid_S01_Reset_reset),
+      .H00_SEM51Host_read_data_valid_S02_OptKey_optkey         (H00_SEM51Host_read_data_valid_S02_OptKey_optkey),
+      .H00_SEM51Host_read_data_valid_S03_IntrqKey_intkey       (H00_SEM51Host_read_data_valid_S03_IntrqKey_intkey),
+      .H00_SEM51Host_read_data_valid_S10_PNLCtrl_addr          (H00_SEM51Host_read_data_valid_S10_PNLCtrl_addr),
+      .H00_SEM51Host_read_data_valid_S10_PNLCtrl_ctrl          (H00_SEM51Host_read_data_valid_S10_PNLCtrl_ctrl),
+      .H00_SEM51Host_read_data_valid_S10_PNLCtrl_key0          (H00_SEM51Host_read_data_valid_S10_PNLCtrl_key0),
+      .H00_SEM51Host_read_data_valid_S10_PNLCtrl_key1          (H00_SEM51Host_read_data_valid_S10_PNLCtrl_key1),
+      .H00_SEM51Host_read_data_valid_S10_PNLCtrl_key2          (H00_SEM51Host_read_data_valid_S10_PNLCtrl_key2),
+      .H00_SEM51Host_read_data_valid_S10_PNLCtrl_key3          (H00_SEM51Host_read_data_valid_S10_PNLCtrl_key3),
+      .H00_SEM51Host_read_data_valid_S11_T6963_LCD_lcd         (H00_SEM51Host_read_data_valid_S11_T6963_LCD_lcd),
+      .H00_SEM51Host_read_data_valid_S20_ATA8_Interface_ata    (H00_SEM51Host_read_data_valid_S20_ATA8_Interface_ata),
+      .H00_SEM51Host_read_data_valid_brushlessmotor_0_ctrl     (H00_SEM51Host_read_data_valid_brushlessmotor_0_ctrl),
+      .H00_SEM51Host_read_data_valid_frequent_measure_0_ctrl   (H00_SEM51Host_read_data_valid_frequent_measure_0_ctrl),
+      .H00_SEM51Host_requests_S00_ChipID_idout                 (H00_SEM51Host_requests_S00_ChipID_idout),
+      .H00_SEM51Host_requests_S01_Reset_reset                  (H00_SEM51Host_requests_S01_Reset_reset),
+      .H00_SEM51Host_requests_S02_OptKey_optkey                (H00_SEM51Host_requests_S02_OptKey_optkey),
+      .H00_SEM51Host_requests_S03_IntrqKey_intkey              (H00_SEM51Host_requests_S03_IntrqKey_intkey),
+      .H00_SEM51Host_requests_S10_PNLCtrl_addr                 (H00_SEM51Host_requests_S10_PNLCtrl_addr),
+      .H00_SEM51Host_requests_S10_PNLCtrl_ctrl                 (H00_SEM51Host_requests_S10_PNLCtrl_ctrl),
+      .H00_SEM51Host_requests_S10_PNLCtrl_key0                 (H00_SEM51Host_requests_S10_PNLCtrl_key0),
+      .H00_SEM51Host_requests_S10_PNLCtrl_key1                 (H00_SEM51Host_requests_S10_PNLCtrl_key1),
+      .H00_SEM51Host_requests_S10_PNLCtrl_key2                 (H00_SEM51Host_requests_S10_PNLCtrl_key2),
+      .H00_SEM51Host_requests_S10_PNLCtrl_key3                 (H00_SEM51Host_requests_S10_PNLCtrl_key3),
+      .H00_SEM51Host_requests_S11_T6963_LCD_lcd                (H00_SEM51Host_requests_S11_T6963_LCD_lcd),
+      .H00_SEM51Host_requests_S20_ATA8_Interface_ata           (H00_SEM51Host_requests_S20_ATA8_Interface_ata),
+      .H00_SEM51Host_requests_brushlessmotor_0_ctrl            (H00_SEM51Host_requests_brushlessmotor_0_ctrl),
+      .H00_SEM51Host_requests_frequent_measure_0_ctrl          (H00_SEM51Host_requests_frequent_measure_0_ctrl),
+      .S00_ChipID_idout_readdata_from_sa                       (S00_ChipID_idout_readdata_from_sa),
+      .S00_ChipID_idout_waitrequest_n_from_sa                  (S00_ChipID_idout_waitrequest_n_from_sa),
+      .S01_Reset_reset_readdata_from_sa                        (S01_Reset_reset_readdata_from_sa),
+      .S01_Reset_reset_waitrequest_n_from_sa                   (S01_Reset_reset_waitrequest_n_from_sa),
+      .S02_OptKey_optkey_readdata_from_sa                      (S02_OptKey_optkey_readdata_from_sa),
+      .S02_OptKey_optkey_waitrequest_n_from_sa                 (S02_OptKey_optkey_waitrequest_n_from_sa),
+      .S03_IntrqKey_intkey_irq_from_sa                         (S03_IntrqKey_intkey_irq_from_sa),
+      .S03_IntrqKey_intkey_readdata_from_sa                    (S03_IntrqKey_intkey_readdata_from_sa),
+      .S03_IntrqKey_intkey_waitrequest_n_from_sa               (S03_IntrqKey_intkey_waitrequest_n_from_sa),
+      .S10_PNLCtrl_addr_irq_from_sa                            (S10_PNLCtrl_addr_irq_from_sa),
+      .S10_PNLCtrl_addr_readdata_from_sa                       (S10_PNLCtrl_addr_readdata_from_sa),
+      .S10_PNLCtrl_addr_waitrequest_n_from_sa                  (S10_PNLCtrl_addr_waitrequest_n_from_sa),
+      .S10_PNLCtrl_ctrl_readdata_from_sa                       (S10_PNLCtrl_ctrl_readdata_from_sa),
+      .S10_PNLCtrl_ctrl_waitrequest_n_from_sa                  (S10_PNLCtrl_ctrl_waitrequest_n_from_sa),
+      .S10_PNLCtrl_key0_readdata_from_sa                       (S10_PNLCtrl_key0_readdata_from_sa),
+      .S10_PNLCtrl_key0_waitrequest_n_from_sa                  (S10_PNLCtrl_key0_waitrequest_n_from_sa),
+      .S10_PNLCtrl_key1_readdata_from_sa                       (S10_PNLCtrl_key1_readdata_from_sa),
+      .S10_PNLCtrl_key1_waitrequest_n_from_sa                  (S10_PNLCtrl_key1_waitrequest_n_from_sa),
+      .S10_PNLCtrl_key2_readdata_from_sa                       (S10_PNLCtrl_key2_readdata_from_sa),
+      .S10_PNLCtrl_key2_waitrequest_n_from_sa                  (S10_PNLCtrl_key2_waitrequest_n_from_sa),
+      .S10_PNLCtrl_key3_readdata_from_sa                       (S10_PNLCtrl_key3_readdata_from_sa),
+      .S10_PNLCtrl_key3_waitrequest_n_from_sa                  (S10_PNLCtrl_key3_waitrequest_n_from_sa),
+      .S11_T6963_LCD_lcd_readdata_from_sa                      (S11_T6963_LCD_lcd_readdata_from_sa),
+      .S11_T6963_LCD_lcd_waitrequest_n_from_sa                 (S11_T6963_LCD_lcd_waitrequest_n_from_sa),
+      .S20_ATA8_Interface_ata_irq_from_sa                      (S20_ATA8_Interface_ata_irq_from_sa),
+      .S20_ATA8_Interface_ata_readdata_from_sa                 (S20_ATA8_Interface_ata_readdata_from_sa),
+      .S20_ATA8_Interface_ata_waitrequest_n_from_sa            (S20_ATA8_Interface_ata_waitrequest_n_from_sa),
+      .brushlessmotor_0_ctrl_readdata_from_sa                  (brushlessmotor_0_ctrl_readdata_from_sa),
+      .clk                                                     (MCU_CLK),
+      .d1_S00_ChipID_idout_end_xfer                            (d1_S00_ChipID_idout_end_xfer),
+      .d1_S01_Reset_reset_end_xfer                             (d1_S01_Reset_reset_end_xfer),
+      .d1_S02_OptKey_optkey_end_xfer                           (d1_S02_OptKey_optkey_end_xfer),
+      .d1_S03_IntrqKey_intkey_end_xfer                         (d1_S03_IntrqKey_intkey_end_xfer),
+      .d1_S10_PNLCtrl_addr_end_xfer                            (d1_S10_PNLCtrl_addr_end_xfer),
+      .d1_S10_PNLCtrl_ctrl_end_xfer                            (d1_S10_PNLCtrl_ctrl_end_xfer),
+      .d1_S10_PNLCtrl_key0_end_xfer                            (d1_S10_PNLCtrl_key0_end_xfer),
+      .d1_S10_PNLCtrl_key1_end_xfer                            (d1_S10_PNLCtrl_key1_end_xfer),
+      .d1_S10_PNLCtrl_key2_end_xfer                            (d1_S10_PNLCtrl_key2_end_xfer),
+      .d1_S10_PNLCtrl_key3_end_xfer                            (d1_S10_PNLCtrl_key3_end_xfer),
+      .d1_S11_T6963_LCD_lcd_end_xfer                           (d1_S11_T6963_LCD_lcd_end_xfer),
+      .d1_S20_ATA8_Interface_ata_end_xfer                      (d1_S20_ATA8_Interface_ata_end_xfer),
+      .d1_brushlessmotor_0_ctrl_end_xfer                       (d1_brushlessmotor_0_ctrl_end_xfer),
+      .d1_frequent_measure_0_ctrl_end_xfer                     (d1_frequent_measure_0_ctrl_end_xfer),
+      .frequent_measure_0_ctrl_readdata_from_sa                (frequent_measure_0_ctrl_readdata_from_sa),
+      .reset_n                                                 (MCU_CLK_reset_n)
     );
 
   H00_SEM51Host the_H00_SEM51Host
@@ -4869,6 +5184,41 @@ module EXB51_MAIN (
       .rsi_MRST_reset     (brushlessmotor_0_ctrl_reset)
     );
 
+  frequent_measure_0_ctrl_arbitrator the_frequent_measure_0_ctrl
+    (
+      .H00_SEM51Host_granted_frequent_measure_0_ctrl           (H00_SEM51Host_granted_frequent_measure_0_ctrl),
+      .H00_SEM51Host_m0_address_to_slave                       (H00_SEM51Host_m0_address_to_slave),
+      .H00_SEM51Host_m0_chipselect_n                           (H00_SEM51Host_m0_chipselect_n),
+      .H00_SEM51Host_m0_read_n                                 (H00_SEM51Host_m0_read_n),
+      .H00_SEM51Host_m0_write_n                                (H00_SEM51Host_m0_write_n),
+      .H00_SEM51Host_m0_writedata                              (H00_SEM51Host_m0_writedata),
+      .H00_SEM51Host_qualified_request_frequent_measure_0_ctrl (H00_SEM51Host_qualified_request_frequent_measure_0_ctrl),
+      .H00_SEM51Host_read_data_valid_frequent_measure_0_ctrl   (H00_SEM51Host_read_data_valid_frequent_measure_0_ctrl),
+      .H00_SEM51Host_requests_frequent_measure_0_ctrl          (H00_SEM51Host_requests_frequent_measure_0_ctrl),
+      .clk                                                     (MCU_CLK),
+      .d1_frequent_measure_0_ctrl_end_xfer                     (d1_frequent_measure_0_ctrl_end_xfer),
+      .frequent_measure_0_ctrl_address                         (frequent_measure_0_ctrl_address),
+      .frequent_measure_0_ctrl_read                            (frequent_measure_0_ctrl_read),
+      .frequent_measure_0_ctrl_readdata                        (frequent_measure_0_ctrl_readdata),
+      .frequent_measure_0_ctrl_readdata_from_sa                (frequent_measure_0_ctrl_readdata_from_sa),
+      .frequent_measure_0_ctrl_reset                           (frequent_measure_0_ctrl_reset),
+      .frequent_measure_0_ctrl_write                           (frequent_measure_0_ctrl_write),
+      .frequent_measure_0_ctrl_writedata                       (frequent_measure_0_ctrl_writedata),
+      .reset_n                                                 (MCU_CLK_reset_n)
+    );
+
+  frequent_measure_0 the_frequent_measure_0
+    (
+      .avs_ctrl_address   (frequent_measure_0_ctrl_address),
+      .avs_ctrl_read      (frequent_measure_0_ctrl_read),
+      .avs_ctrl_readdata  (frequent_measure_0_ctrl_readdata),
+      .avs_ctrl_write     (frequent_measure_0_ctrl_write),
+      .avs_ctrl_writedata (frequent_measure_0_ctrl_writedata),
+      .csi_MCLK_clk       (MCU_CLK),
+      .frequent           (frequent_to_the_frequent_measure_0),
+      .rsi_MRST_reset     (frequent_measure_0_ctrl_reset)
+    );
+
   //reset is asserted asynchronously and deasserted synchronously
   EXB51_MAIN_reset_MCU_CLK_domain_synch_module EXB51_MAIN_reset_MCU_CLK_domain_synch
     (
@@ -4920,6 +5270,8 @@ endmodule
 `include "S20_ATA8_Interface.v"
 `include "sopc_root/SOPC_IntKey.v"
 `include "S03_IntrqKey.v"
+`include "sopc_root/frequent_measure.v"
+`include "frequent_measure_0.v"
 `include "sopc_root/SOPC_ChipID.v"
 `include "S00_ChipID.v"
 `include "sopc_root/SOPC_SEM51Host.v"
@@ -4975,6 +5327,7 @@ module test_bench
   wire             SEM_WAITN_from_the_H00_SEM51Host;
   wire             SEM_WEN_to_the_H00_SEM51Host;
   wire             clk;
+  wire             frequent_to_the_frequent_measure_0;
   reg              reset_n;
 
 
@@ -5028,6 +5381,7 @@ module test_bench
       .SEM_OEN_to_the_H00_SEM51Host                (SEM_OEN_to_the_H00_SEM51Host),
       .SEM_WAITN_from_the_H00_SEM51Host            (SEM_WAITN_from_the_H00_SEM51Host),
       .SEM_WEN_to_the_H00_SEM51Host                (SEM_WEN_to_the_H00_SEM51Host),
+      .frequent_to_the_frequent_measure_0          (frequent_to_the_frequent_measure_0),
       .reset_n                                     (reset_n)
     );
 

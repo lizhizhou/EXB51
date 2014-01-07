@@ -1,10 +1,10 @@
-/* Quartus II Version 10.1 Build 197 01/19/2011 Service Pack 1 SJ Full Version */
+/* Quartus II 32-bit Version 12.1 Build 243 01/31/2013 Service Pack 1 SJ Full Version */
 JedecChain;
 	FileRevision(JESD32A);
 	DefaultMfr(6E);
 
 	P ActionCode(Cfg)
-		Device PartName(EP3C10) Path("D:/Project/_BuildBlock/Hardware/EXB-100/Testbench/EXB-100-U1-C8051F/") File("EXB-100-U1-C8051F.jic") MfrSpec(OpMask(1) SEC_Device(EPCS4) Child_OpMask(1 7));
+		Device PartName(EP3C10F256) Path("/home/cowin/meteroi/EXB51/") File("EXB-100-U1.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

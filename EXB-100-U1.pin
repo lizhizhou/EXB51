@@ -1,4 +1,4 @@
- -- Copyright (C) 1991-2011 Altera Corporation
+ -- Copyright (C) 1991-2012 Altera Corporation
  -- Your use of Altera Corporation's design tools, logic functions 
  -- and other software and tools, and its AMPP partner logic 
  -- functions, and any output files from any of the foregoing 
@@ -63,7 +63,7 @@
  -- Pin directions (input, output or bidir) are based on device operating in user mode.
  ---------------------------------------------------------------------------------
 
-Quartus II Version 10.1 Build 197 01/19/2011 Service Pack 1 SJ Full Version
+Quartus II 32-bit Version 12.1 Build 243 01/31/2013 Service Pack 1 SJ Full Version
 CHIP  "EXB-100-U1"  ASSIGNED TO AN: EP3C10F256C8
 
 Device Migration List: "EP3C16F256C8, EP3C5F256C8"

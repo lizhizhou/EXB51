@@ -124,19 +124,6 @@
          type = "String";
       }
    }
-   element frequent_measure_0.ctrl
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "128";
-         type = "String";
-      }
-   }
    element S10_PNLCtrl.ctrl
    {
       datum _lockedAddress
@@ -148,6 +135,19 @@
       {
          value = "21";
          type = "long";
+      }
+   }
+   element frequent_measure_0.ctrl
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "128";
+         type = "String";
       }
    }
    element frequent_measure_0
@@ -258,7 +258,7 @@
 }
 ]]></parameter>
  <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
- <parameter name="device" value="Unknown" />
+ <parameter name="device" value="EP3C10F256C8" />
  <parameter name="deviceFamily" value="Cyclone III" />
  <parameter name="deviceSpeedGrade" value="Unknown" />
  <parameter name="fabricMode" value="SOPC" />
@@ -269,8 +269,8 @@
  <parameter name="maxAdditionalLatency" value="0" />
  <parameter name="projectName" value="EXB-100-U1.qpf" />
  <parameter name="sopcBorderPoints" value="true" />
- <parameter name="systemHash" value="-2994891569" />
- <parameter name="timeStamp" value="1388808534505" />
+ <parameter name="systemHash" value="-5625133589" />
+ <parameter name="timeStamp" value="1389091564619" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <module kind="clock_source" version="12.1" enabled="1" name="MCU_CLK">
   <parameter name="clockFrequency" value="48000000" />
@@ -309,7 +309,7 @@
  <module
    kind="frequent_measure"
    version="1.0"
-   enabled="0"
+   enabled="1"
    name="frequent_measure_0">
   <parameter name="AUTO_MCLK_CLOCK_RATE" value="48000000" />
  </module>

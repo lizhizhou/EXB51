@@ -44,6 +44,7 @@
       .SEM_OEN_to_the_H00_SEM51Host                (SEM_OEN_to_the_H00_SEM51Host),
       .SEM_WAITN_from_the_H00_SEM51Host            (SEM_WAITN_from_the_H00_SEM51Host),
       .SEM_WEN_to_the_H00_SEM51Host                (SEM_WEN_to_the_H00_SEM51Host),
+      .frequent_to_the_frequent_measure_0          (frequent_to_the_frequent_measure_0),
       .reset_n                                     (reset_n)
     );
 

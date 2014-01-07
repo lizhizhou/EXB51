@@ -210,6 +210,12 @@ SYSTEM EXB51_MAIN
                span = "0x00000001";
                is_bridge = "0";
             }
+            Entry frequent_measure_0/ctrl
+            {
+               address = "0x00000080";
+               span = "0x00000010";
+               is_bridge = "0";
+            }
             Entry brushlessmotor_0/ctrl
             {
                address = "0x00000060";
@@ -1729,6 +1735,142 @@ SYSTEM EXB51_MAIN
       HDL_INFO 
       {
          Simulation_HDL_Files = "/home/cowin/meteroi/EXB51/sopc_root/SOPC_PNLPort.v,/home/cowin/meteroi/EXB51/S10_PNLCtrl.v";
+      }
+      WIZARD_SCRIPT_ARGUMENTS 
+      {
+      }
+   }
+   MODULE frequent_measure_0
+   {
+      SLAVE ctrl
+      {
+         PORT_WIRING 
+         {
+            PORT csi_MCLK_clk
+            {
+               type = "clk";
+               width = "1";
+               direction = "input";
+               Is_Enabled = "1";
+            }
+            PORT rsi_MRST_reset
+            {
+               type = "reset";
+               width = "1";
+               direction = "input";
+               Is_Enabled = "1";
+            }
+            PORT avs_ctrl_writedata
+            {
+               type = "writedata";
+               width = "8";
+               direction = "input";
+               Is_Enabled = "1";
+            }
+            PORT avs_ctrl_readdata
+            {
+               type = "readdata";
+               width = "8";
+               direction = "output";
+               Is_Enabled = "1";
+            }
+            PORT avs_ctrl_address
+            {
+               type = "address";
+               width = "4";
+               direction = "input";
+               Is_Enabled = "1";
+            }
+            PORT avs_ctrl_write
+            {
+               type = "write";
+               width = "1";
+               direction = "input";
+               Is_Enabled = "1";
+            }
+            PORT avs_ctrl_read
+            {
+               type = "read";
+               width = "1";
+               direction = "input";
+               Is_Enabled = "1";
+            }
+         }
+         SYSTEM_BUILDER_INFO 
+         {
+            Bus_Type = "avalon";
+            Write_Wait_States = "0cycles";
+            Read_Wait_States = "1cycles";
+            Hold_Time = "0cycles";
+            Setup_Time = "0cycles";
+            Is_Printable_Device = "0";
+            Address_Alignment = "dynamic";
+            Well_Behaved_Waitrequest = "0";
+            Is_Nonvolatile_Storage = "0";
+            Address_Span = "16";
+            Read_Latency = "0";
+            Is_Memory_Device = "0";
+            Maximum_Pending_Read_Transactions = "0";
+            Minimum_Uninterrupted_Run_Length = "1";
+            Accepts_Internal_Connections = "1";
+            Write_Latency = "0";
+            Is_Flash = "0";
+            Data_Width = "8";
+            Address_Width = "4";
+            Maximum_Burst_Size = "1";
+            Register_Incoming_Signals = "0";
+            Register_Outgoing_Signals = "0";
+            Interleave_Bursts = "0";
+            Linewrap_Bursts = "0";
+            Burst_On_Burst_Boundaries_Only = "0";
+            Always_Burst_Max_Burst = "0";
+            Is_Big_Endian = "0";
+            Is_Enabled = "1";
+            MASTERED_BY H00_SEM51Host/m0
+            {
+               priority = "1";
+               Offset_Address = "0x00000080";
+            }
+            Base_Address = "0x00000080";
+            Address_Group = "0";
+            IRQ_MASTER H00_SEM51Host/m0
+            {
+               IRQ_Number = "NC";
+            }
+         }
+      }
+      PORT_WIRING 
+      {
+         PORT frequent
+         {
+            type = "export";
+            width = "1";
+            direction = "input";
+            Is_Enabled = "1";
+         }
+      }
+      class = "no_legacy_module";
+      class_version = "7.08121";
+      gtf_class_name = "frequent_measure";
+      gtf_class_version = "1.0";
+      SYSTEM_BUILDER_INFO 
+      {
+         Do_Not_Generate = "1";
+         Instantiate_In_System_Module = "1";
+         Is_Bridge = "0";
+         Is_Enabled = "1";
+         Clock_Source = "MCU_CLK";
+         Has_Clock = "1";
+         View 
+         {
+            MESSAGES 
+            {
+            }
+         }
+      }
+      HDL_INFO 
+      {
+         Simulation_HDL_Files = "/home/cowin/meteroi/EXB51/sopc_root/frequent_measure.v,/home/cowin/meteroi/EXB51/frequent_measure_0.v";
       }
       WIZARD_SCRIPT_ARGUMENTS 
       {
